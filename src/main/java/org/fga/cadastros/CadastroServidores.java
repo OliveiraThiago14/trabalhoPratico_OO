@@ -1,6 +1,9 @@
 package org.fga.cadastros;
 
+import lombok.Getter;
 import org.fga.entidades.Professor;
+import org.fga.entidades.Servidores;
+import org.fga.entidades.ServidoresAdm;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,17 +15,17 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
-public class CadastroProfessores {
-    private Integer numProfessores = 0;
-    private static CadastroProfessores instancia;
+public class CadastroServidores {
+    private Integer numServidores;
+    private static CadastroServidores instancia;
 
-    public static synchronized CadastroProfessores getInstancia(){
-        if(instancia != null) {
+    public static synchronized CadastroServidores getInstancia(){
+        if(instancia != null){
             return instancia;
         }
+        File file = new File("servdb.txt");
         try {
-            File file = new File("profdb.txt");
-            if (!file.createNewFile()) {
+            if(!file.createNewFile()) {
                 System.out.println("banco de dados dos professores já existe");
             } else {
                 System.out.println("banco de dados dos professores criado com sucesso");
@@ -30,24 +33,24 @@ public class CadastroProfessores {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return instancia = new CadastroProfessores();
+        return instancia = new CadastroServidores();
     }
 
-    public Integer cadastrarProf(Professor p){
-        if(buscarProfessor(p.getMatricula()) != null){
+    public Integer cadastarServidor(ServidoresAdm s){
+        if(buscarServidor(s.getMatricula()) == null){
             return 0;
         }
-        try(FileWriter escritor = new FileWriter("profdb.txt", true)){
-            escritor.write(p.toString() + "\n");
-            numProfessores++;
+        try(FileWriter escritor = new FileWriter("servdb.txt", true)){
+            escritor.write(s.toString() + "\n");
+            numServidores++;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return numProfessores;
+        return numServidores;
     }
 
-    public Professor buscarProfessor(String matricula){
-        try(Scanner scanner = new Scanner(new File("profdb.txt"))){
+    public Professor buscarServidor(String matricula){
+        try(Scanner scanner = new Scanner(new File("servdb.txt"))){
             while (scanner.hasNextLine()){
                 String dado = scanner.nextLine();
                 String[] separado = dado.split(",");
@@ -62,15 +65,15 @@ public class CadastroProfessores {
         return null;
     }
 
-    public boolean atualizarProf(String matricula, Professor p){
-        Path path = Paths.get("profdb.txt");
+    public boolean atualizarServidor(String matricula, ServidoresAdm s){
+        Path path = Paths.get("servdb.txt");
         List<String> text;
         try {
             text = Files.readAllLines(path);
             for (int i = 0; i < text.size(); i++) {
                 String[] separado = text.get(i).split(",");
                 if(separado[5].trim().equals(matricula)){
-                    text.set(i, p.toString());
+                    text.set(i, s.toString());
                     Files.write(path, text);
                     return true;
                 }

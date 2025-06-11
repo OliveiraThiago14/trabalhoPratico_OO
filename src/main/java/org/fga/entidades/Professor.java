@@ -2,6 +2,11 @@ package org.fga.entidades;
 
 import lombok.Getter;
 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 @Getter
 public class Professor extends Servidores {
     private String curso;
@@ -19,6 +24,7 @@ public class Professor extends Servidores {
                 getCargo() + "," +
                 getTelefone() + "," +
                 getMatricula() + "," +
-                getCurso();
+                getCurso() + "," +
+                OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     }
 }
