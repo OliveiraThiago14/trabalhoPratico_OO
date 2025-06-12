@@ -12,9 +12,9 @@ import java.time.temporal.ChronoUnit;
 public class Aluno extends Usuario{
     private String curso;
     private String matricula;
-    private Integer semestre;
+    private String semestre;
 
-    public Aluno(String nome, String email, String telefone, String senha, String curso, String matricula, Integer semestre) {
+    public Aluno(String nome, String email, String telefone, String senha, String curso, String matricula, String semestre) {
         super(nome, email, telefone, senha);
         this.curso = curso;
         this.matricula = matricula;
