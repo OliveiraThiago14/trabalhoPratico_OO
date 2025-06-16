@@ -4,14 +4,17 @@ import org.fga.cadastros.CadastroProfessores;
 import org.fga.cadastros.CadastroServidores;
 import org.fga.entidades.Professor;
 import org.fga.exceptions.DiasExcedidosException;
+import org.fga.entidades.Aluno;
 
 
-public class Menu {
-    public static void main(String[] args) throws DiasExcedidosException {
-        CadastroServidores cadastroServidores = CadastroServidores.getInstancia();
-        CadastroProfessores cadastroProfessores = CadastroProfessores.getInstancia();
+public abstract class Menu {
 
-        Professor professor = new Professor("pedro", "pedro@gmail.com", "61992138123", "pedro", "241011546", "prof", "eng");
-        cadastroProfessores.cadastrarProf(professor);
-    }
+    protected abstract Aluno dadosNovo(String matricula);
+
+    protected abstract String lerNome(String matricula);
+    protected abstract String lerEmail(String matricula);
+    protected abstract String lerMatricula(String nome);
+    protected abstract String lerCurso(String matricula);
+    protected abstract String lerTelefone(String matricula);
+    protected abstract String lerSemestre(String matricula);
 }
