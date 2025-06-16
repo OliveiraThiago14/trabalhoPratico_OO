@@ -1,1 +1,4 @@
 Thiago,thi@aluno.unb.br,0101,terceiro,61982898289,241011600,engenharias,2025-06-12T18:19:21-03:00
+Pedro,pam@gmail.com,0000,terceiro,61981818982,241011655,eng de software,2025-06-16T19:32:07-03:00
+Gustavo,guga@gmail.com,0901,terceiro,982345567,241011455,eng de software,2025-06-16T19:54:23-03:00
+Guilherme,guibala@gmail.com,0405,terceiro,982423588,241011877,eng de soft,2025-06-16T19:32:07-03:00

@@ -26,9 +26,9 @@ public class CadastroServidores {
         File file = new File("servdb.txt");
         try {
             if(!file.createNewFile()) {
-                System.out.println("banco de dados dos professores já existe");
+                System.out.println("banco de dados dos servidores já existe");
             } else {
-                System.out.println("banco de dados dos professores criado com sucesso");
+                System.out.println("banco de dados dos servidores criado com sucesso");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
