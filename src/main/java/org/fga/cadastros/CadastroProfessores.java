@@ -1,6 +1,7 @@
 package org.fga.cadastros;
 
 import org.fga.entidades.Professor;
+import org.fga.entidades.Usuario;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
-public class CadastroProfessores {
+public class CadastroProfessores extends CadastroUsuario{
     private Integer numProfessores = 0;
     private static CadastroProfessores instancia;
 
@@ -33,8 +34,10 @@ public class CadastroProfessores {
         return instancia = new CadastroProfessores();
     }
 
-    public Integer cadastrarProf(Professor p){
-        if(buscarProfessor(p.getMatricula()) != null){
+    @Override
+    public Integer cadastrar(Usuario usuario){
+        Professor p = (Professor) usuario;
+        if(buscar(p.getMatricula()) != null){
             return 0;
         }
         try(FileWriter escritor = new FileWriter("profdb.txt", true)){
@@ -46,7 +49,8 @@ public class CadastroProfessores {
         return numProfessores;
     }
 
-    public Professor buscarProfessor(String matricula){
+    @Override
+    public Professor buscar(String matricula){
         try(Scanner scanner = new Scanner(new File("profdb.txt"))){
             while (scanner.hasNextLine()){
                 String dado = scanner.nextLine();
@@ -62,7 +66,9 @@ public class CadastroProfessores {
         return null;
     }
 
-    public boolean atualizarProf(String matricula, Professor p){
+    @Override
+    public boolean atualizar(String matricula, Usuario usuario){
+        Professor p = (Professor) usuario;
         Path path = Paths.get("profdb.txt");
         List<String> text;
         try {
