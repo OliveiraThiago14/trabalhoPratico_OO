@@ -50,7 +50,7 @@ public class Aluno extends Usuario{
             throw new RuntimeException(e);
         }
         System.out.println("Aluno não encontrado!");
-        return false;
+        return true;
     }
 }
 
