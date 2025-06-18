@@ -36,20 +36,21 @@ public class Aluno extends Usuario{
                 OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     }
 
-    public boolean verificarAluno(String Matricula) {
-        try(Scanner scanner = new Scanner(new File("alunodb.txt"))){
-            while (scanner.hasNextLine()){
+    @Override
+    public boolean verificaUser(String Matricula) {
+        try (Scanner scanner = new Scanner(new File("alunodb.txt"))) {
+            while (scanner.hasNextLine()) {
                 String dado = scanner.nextLine();
                 String[] separado = dado.split(",");
-                if(separado[5].equals(Matricula)){
-                    System.out.println("Aluno encontrado");
+                if (separado[5].equals(Matricula)) {
+                    System.out.println("Aluno encontrado! Prossiga com a reserva");
                     return true;
                 }
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Aluno não encontrado!");
+        System.out.println("Aluno não encontrado! Não é possivel fazer uma reserva");
         return false;
     }
 }
