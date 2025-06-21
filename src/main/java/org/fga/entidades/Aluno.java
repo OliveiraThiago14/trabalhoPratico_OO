@@ -11,25 +11,11 @@ import java.time.temporal.ChronoUnit;
 @Setter
 public class Aluno extends Usuario{
     private String curso;
-    private String matricula;
     private String semestre;
 
     public Aluno(String nome, String email, String telefone, String senha, String curso, String matricula, String semestre) {
-        super(nome, email, telefone, senha);
+        super(nome, email, telefone, senha, matricula);
         this.curso = curso;
-        this.matricula = matricula;
         this.semestre = semestre;
-    }
-
-    @Override
-    public String toString() {
-        return getNome() + "," +
-                getEmail() + "," +
-                getSenha() + "," +
-                getSemestre() + "," +
-                getTelefone() + "," +
-                getMatricula() + "," +
-                getCurso() + "," +
-                OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     }
 }

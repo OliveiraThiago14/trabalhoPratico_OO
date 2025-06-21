@@ -12,4 +12,5 @@ public class Usuario {
     private String email;
     private String telefone;
     private String senha;
+    private String matricula;
 }
