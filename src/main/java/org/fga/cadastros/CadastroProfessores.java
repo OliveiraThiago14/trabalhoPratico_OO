@@ -50,7 +50,7 @@ public class CadastroProfessores extends CadastroUsuario{
     }
 
     @Override
-    public Professor buscar(String matricula){
+    public  Professor buscar(String matricula){
         try(Scanner scanner = new Scanner(new File("profdb.txt"))){
             while (scanner.hasNextLine()){
                 String dado = scanner.nextLine();

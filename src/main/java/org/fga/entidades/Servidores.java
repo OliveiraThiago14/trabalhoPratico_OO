@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Servidores extends Usuario{
+public abstract class Servidores extends Usuario{
     private String matricula;
     private String cargo;
 
@@ -14,4 +14,5 @@ public class Servidores extends Usuario{
         this.matricula = matricula;
         this.cargo = cargo;
     }
+
 }

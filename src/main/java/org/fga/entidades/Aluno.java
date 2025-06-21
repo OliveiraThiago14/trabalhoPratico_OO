@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Scanner;
 
 @Getter
 @Setter
@@ -32,4 +35,23 @@ public class Aluno extends Usuario{
                 getCurso() + "," +
                 OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     }
+
+    @Override
+    public boolean verificaUser(String Matricula) {
+        try (Scanner scanner = new Scanner(new File("alunodb.txt"))) {
+            while (scanner.hasNextLine()) {
+                String dado = scanner.nextLine();
+                String[] separado = dado.split(",");
+                if (separado[5].equals(Matricula)) {
+                    System.out.println("Aluno encontrado! Prossiga com a reserva");
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Aluno não encontrado! Não é possivel fazer uma reserva");
+        return false;
+    }
 }
+
