@@ -2,6 +2,7 @@ package org.fga.entidades;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import java.util.Scanner;
 
 @Getter
 @AllArgsConstructor

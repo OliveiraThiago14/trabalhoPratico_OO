@@ -1,11 +1,11 @@
 package org.fga.entidades;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.OffsetDateTime;
-import java.time.temporal.ChronoUnit;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 @Getter
 @Setter
