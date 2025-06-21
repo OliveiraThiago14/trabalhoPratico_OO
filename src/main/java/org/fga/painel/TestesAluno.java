@@ -1,11 +1,10 @@
 package org.fga.painel;
 
 import org.fga.cadastros.CadastroAluno;
-import org.fga.cadastros.CadastroProfessores;
-import org.fga.cadastros.CadastroServidores;
+import org.fga.cadastros.CadastroProfessor;
+import org.fga.cadastros.CadastroServidor;
 import org.fga.entidades.Aluno;
 import org.fga.entidades.Professor;
-import org.fga.exceptions.DiasExcedidosException;
 
 public class TestesAluno {
     public static void main(String[] args) {
@@ -17,25 +16,17 @@ public class TestesAluno {
         CadastroAluno.getInstacia();
         CadastroAluno a = new CadastroAluno();
         MenuAluno menu = new MenuAluno();
-        a.cadastrarAluno(a1);
-        a.cadastrarAluno(a2);
-        a.cadastrarAluno(a3);
-        a.cadastrarAluno(a4);
+        a.cadastrar(a1);
+        a.cadastrar(a2);
+        a.cadastrar(a3);
+        a.cadastrar(a4);
         Aluno a33 = new Aluno("Gustavo", "guga@gmail.com", "982345567", "0901", "eng de software", "241011455", "terceiro");
-        a.atualizarAluno("241011455", a33);
+        a.atualizar("241011455", a33);
 
-        menu.lerNome("241011655");
-        menu.lerTelefone("241011655");
-        menu.lerCurso("241011655");
-        menu.lerEmail("241011655");
-        menu.lerSemestre("241011655");
-        menu.lerMatricula("Gustavo");
-
-
-        CadastroServidores cadastroServidores = CadastroServidores.getInstancia();
-        CadastroProfessores cadastroProfessores = CadastroProfessores.getInstancia();
+        CadastroServidor cadastroServidores = CadastroServidor.getInstancia();
+        CadastroProfessor cadastroProfessores = CadastroProfessor.getInstancia();
 
         Professor professor = new Professor("pedro", "pedro@gmail.com", "61992138123", "pedro", "241011546", "prof", "eng");
-        cadastroProfessores.cadastrarProf(professor);
+        cadastroProfessores.cadastrar(professor);
     }
 }

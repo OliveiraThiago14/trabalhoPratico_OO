@@ -1,9 +1,9 @@
 package org.fga.painel;
 
-import org.fga.Espacos.Auditorio;
-import org.fga.Espacos.EspacosFisicos;
-import org.fga.Espacos.Laboratorio;
-import org.fga.Espacos.Sala;
+import org.fga.espacos.Auditorio;
+import org.fga.espacos.EspacosFisicos;
+import org.fga.espacos.Laboratorio;
+import org.fga.espacos.Sala;
 
 import java.util.ArrayList;
 import java.util.List;

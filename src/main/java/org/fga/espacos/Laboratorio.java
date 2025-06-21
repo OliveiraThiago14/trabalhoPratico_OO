@@ -1,4 +1,4 @@
-package org.fga.Espacos;
+package org.fga.espacos;
 
 import lombok.Getter;
 import lombok.Setter;
