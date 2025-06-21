@@ -6,7 +6,6 @@ import org.fga.entidades.Professor;
 import org.fga.exceptions.DiasExcedidosException;
 import org.fga.entidades.Aluno;
 
-
 public abstract class Menu {
 
     protected abstract Aluno dadosNovo(String matricula);

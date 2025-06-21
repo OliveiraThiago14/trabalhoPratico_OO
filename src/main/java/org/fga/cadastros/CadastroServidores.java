@@ -1,9 +1,8 @@
 package org.fga.cadastros;
 
-import lombok.Getter;
 import org.fga.entidades.Professor;
-import org.fga.entidades.Servidores;
 import org.fga.entidades.ServidoresAdm;
+import org.fga.entidades.Usuario;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
-public class CadastroServidores {
+public class CadastroServidores extends CadastroUsuario{
     private Integer numServidores;
     private static CadastroServidores instancia;
 
@@ -36,8 +35,10 @@ public class CadastroServidores {
         return instancia = new CadastroServidores();
     }
 
-    public Integer cadastarServidor(ServidoresAdm s){
-        if(buscarServidor(s.getMatricula()) == null){
+    @Override
+    public Integer cadastrar(Usuario usuario){
+        ServidoresAdm s = (ServidoresAdm) usuario;
+        if(buscar(s.getMatricula()) == null){
             return 0;
         }
         try(FileWriter escritor = new FileWriter("servdb.txt", true)){
@@ -49,7 +50,8 @@ public class CadastroServidores {
         return numServidores;
     }
 
-    public Professor buscarServidor(String matricula){
+    @Override
+    public Professor buscar(String matricula){
         try(Scanner scanner = new Scanner(new File("servdb.txt"))){
             while (scanner.hasNextLine()){
                 String dado = scanner.nextLine();
@@ -65,7 +67,9 @@ public class CadastroServidores {
         return null;
     }
 
-    public boolean atualizarServidor(String matricula, ServidoresAdm s){
+    @Override
+    public boolean atualizar(String matricula, Usuario usuario){
+        ServidoresAdm s = (ServidoresAdm) usuario;
         Path path = Paths.get("servdb.txt");
         List<String> text;
         try {
