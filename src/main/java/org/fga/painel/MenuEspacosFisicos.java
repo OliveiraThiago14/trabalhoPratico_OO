@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class MenuEspacosFisicos {
     Scanner sc = new Scanner(System.in);
     public EspacosFisicos cadastrarEspacoFisico() {
-        List<String> equipamentos = new ArrayList<String>();
+        List<String> equipamentos = new ArrayList<>();
         List<String> disp = new ArrayList<>();
         System.out.println("Informe o tipo de espaço fisico que deseja cadastrar: ");
         System.out.println("1. Sala\n 2. Laboratorio\n 3. Auditorio");

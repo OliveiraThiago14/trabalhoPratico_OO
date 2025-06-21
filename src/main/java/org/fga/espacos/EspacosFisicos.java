@@ -16,7 +16,7 @@ public abstract class EspacosFisicos {
     private String loc;
     private List<String> equipamentos;
     private List<Reserva> reservasDoEspaco;
-    private List<Reserva> historico;
+    private List<Reserva> historicoDeReservasFeitas;
 
     Scanner sc = new Scanner(System.in);
     public EspacosFisicos(String nomeEspaco ,int capacidade, String loc, List<String> disp, List<String> equipamentos) {
@@ -25,7 +25,7 @@ public abstract class EspacosFisicos {
         this.loc = loc;
         this.reservasDoEspaco = new ArrayList<>();
         this.equipamentos = new ArrayList<>();
-        this.historico = new ArrayList<>();
+        this.historicoDeReservasFeitas = new ArrayList<>();
     }
 
     public boolean verificarDisponibilidade(Reserva novaReserva) {
@@ -37,7 +37,7 @@ public abstract class EspacosFisicos {
         }
         System.out.println("Reserva Concedida!");
         getReservasDoEspaco().add(novaReserva);
-        getHistorico().add(novaReserva);
+        getHistoricoDeReservasFeitas().add(novaReserva);
         return true;
     }
 
