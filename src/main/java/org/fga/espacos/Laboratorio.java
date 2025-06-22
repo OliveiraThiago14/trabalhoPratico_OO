@@ -8,8 +8,8 @@ import java.util.List;
 @Setter
 
 public class Laboratorio extends EspacosFisicos {
-    public Laboratorio(int capacidade, String loc, List<String> disp, List<String> equipamentos) {
-        super(capacidade, loc, disp, equipamentos);
+    public Laboratorio(String nomeEspaco, int capacidade, String loc, List<String> disp, List<String> equipamentos) {
+        super(nomeEspaco, capacidade, loc, disp, equipamentos);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class Laboratorio extends EspacosFisicos {
         System.out.println("Informações do Laboratorio:");
         System.out.println("Capacidade:" + getCapacidade());
         System.out.println("Localizacao: " + getLoc());
-        System.out.println("Disponibilidade: " + getDisp());
+        System.out.println("Disponibilidade: " + getReservasDoEspaco());
         System.out.println("Equipamentos: " + getEquipamentos());
     }
 }
