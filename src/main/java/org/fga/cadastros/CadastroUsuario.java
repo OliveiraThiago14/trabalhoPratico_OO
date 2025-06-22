@@ -12,12 +12,11 @@ public class CadastroUsuario<T extends Usuario> extends Cadastro {
     private List<Pair<T, OffsetDateTime>> db = new ArrayList<>();
 
     @Override
-    public Integer cadastrar(Usuario usuario){
-        T usuarioNovo = (T) usuario;
-        if(buscar(usuarioNovo.getMatricula()) != null) {
+    public Integer cadastrar(T usuario){
+        if(buscar(usuario.getMatricula()) != null) {
             return 0;
         }
-        db.add(new Pair<>(usuarioNovo, OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS)));
+        db.add(new Pair<>(usuario, OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS)));
         num++;
         return num;
     }
@@ -33,11 +32,10 @@ public class CadastroUsuario<T extends Usuario> extends Cadastro {
     }
 
     @Override
-    public boolean atualizar(String matricula, Usuario usuario) {
-        T usuarioNovo = (T) usuario;
+    public boolean atualizar(String matricula, T usuario) {
         for(Pair<T, OffsetDateTime> found : db) {
             if (found.getFirst().getMatricula().equals(matricula)) {
-                found.setFirst(usuarioNovo);
+                found.setFirst(usuario);
                 found.setSecond(OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS));
                 return true;
             }
