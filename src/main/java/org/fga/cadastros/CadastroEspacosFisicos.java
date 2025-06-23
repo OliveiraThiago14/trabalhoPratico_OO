@@ -10,15 +10,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CadastroEspacosFisicos {
-    private List<EspacosFisicos> listaDeEspacos = new ArrayList<>();
+    private static List<EspacosFisicos> listaDeEspacos = new ArrayList<>();
     public static CadastroEspacosFisicos instancia;
     Scanner sc = new Scanner(System.in);
 
-
-
-    public void CadastroEspacosFisicos() {
-        this.listaDeEspacos = new ArrayList<EspacosFisicos>();
-    }
 
     public static synchronized CadastroEspacosFisicos getInstancia() {
         if (instancia == null) {
@@ -43,14 +38,12 @@ public class CadastroEspacosFisicos {
         return null;
     }
 
-    public void ListaDeEspacos() {
-        System.out.println(listaDeEspacos);
+    public static void listarEspacos() {
+        System.out.println("\nEspacos cadastrados:");
+        for(EspacosFisicos espaco : listaDeEspacos) {
+            System.out.println(espaco.toString());
+        }
     }
-
-
-
-
-
 
 
     public static EspacosFisicos cadastrarEspacoFisico() {
@@ -68,7 +61,6 @@ public class CadastroEspacosFisicos {
         String loc = sc.nextLine();
         System.out.println("Informe a quantida de equipamentos: ");
         int qtd = sc.nextInt();
-        List<EspacosFisicos> TodosEspacos = new ArrayList<>();
 
         while(qtd > 0) {
             String equip = sc.nextLine();
@@ -77,16 +69,15 @@ public class CadastroEspacosFisicos {
         }
         EspacosFisicos espaco = null;
 
-
         switch (tipoDeEspaco) {
             case 1:
-                TodosEspacos.add(new Sala(nomeEspaco, capacidade, loc, disp , equipamentos));
+                listaDeEspacos.add(new Sala(nomeEspaco, capacidade, loc, disp , equipamentos));
                 break;
             case 2:
-                TodosEspacos.add(new Laboratorio(nomeEspaco, capacidade, loc, disp , equipamentos));
+                listaDeEspacos.add(new Laboratorio(nomeEspaco, capacidade, loc, disp , equipamentos));
                 break;
             case 3:
-                TodosEspacos.add(new Auditorio(nomeEspaco, capacidade, loc, disp , equipamentos));
+                listaDeEspacos.add(new Auditorio(nomeEspaco, capacidade, loc, disp , equipamentos));
                 break;
             default:
                 System.out.println("Erro ao cadastrar Espaco! Esse espaço fisico não existe");

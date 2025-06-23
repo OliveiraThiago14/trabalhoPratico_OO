@@ -1,5 +1,7 @@
 package org.fga.espacos;
 
+import org.fga.entidades.Reserva;
+
 import java.util.List;
 
 public class Sala extends EspacosFisicos{
@@ -7,9 +9,18 @@ public class Sala extends EspacosFisicos{
         super(nomeEspaco, capacidade, loc, disp, equipamentos);
     }
 
+    public Sala() {
+
+    }
+
+    public void reser(){
+        for(Reserva reserva : getHistoricoDeReservasFeitas()){
+
+        }
+    }
 
     @Override
-    public void InformacaoEspaco() {
+    public void informacaoEspaco() {
         System.out.println("Informações da Sala:");
         System.out.println("Capacidade:" + getCapacidade());
         System.out.println("Localizacao: " + getLoc());

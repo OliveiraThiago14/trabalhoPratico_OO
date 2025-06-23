@@ -7,8 +7,11 @@ public class Auditorio extends EspacosFisicos{
         super(nomeEspaco, capacidade, loc, disp, equipamentos);
     }
 
+    public Auditorio() {
+    }
+
     @Override
-    public void InformacaoEspaco() {
+    public void informacaoEspaco() {
         System.out.println("Informações do Auditorio:");
         System.out.println("Capacidade:" + getCapacidade());
         System.out.println("Localizacao: " + getLoc());

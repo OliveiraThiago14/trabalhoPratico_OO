@@ -31,7 +31,15 @@ public abstract class EspacosFisicos {
     public EspacosFisicos() {
     }
 
-    public boolean ReservarEspaco(Reserva novaReserva) {
+    public void reser(){
+        for(Reserva reserva : getHistoricoDeReservasFeitas()){
+            System.out.println(reserva);
+        }
+    }
+
+
+
+    public boolean reservarEspaco(Reserva novaReserva) {
         for (Reserva reservasDoEspaco : getReservasDoEspaco()) {
             if (Reserva.sobreposicao(reservasDoEspaco, novaReserva)) {
                 System.out.println("Reserva não concedida!");
@@ -44,7 +52,7 @@ public abstract class EspacosFisicos {
         return true;
     }
 
-    public void RemoverReserva(Reserva ReservaExistente) {
+    public void removerReserva(Reserva ReservaExistente) {
         if(getReservasDoEspaco().contains(ReservaExistente)) {
             getReservasDoEspaco().remove(ReservaExistente);
             System.out.println("Reserva removida com sucesso!");
@@ -52,7 +60,7 @@ public abstract class EspacosFisicos {
         System.out.println("Reserva não encontrada!");
     }
 
-    public void InformacaoEspaco() {
+    public void informacaoEspaco() {
         System.out.println("Nome do Espaco: " + getNomeEspaco());
         System.out.println("Capacidade: " + getCapacidade());
         System.out.println("Localizacao: " + getLoc());
@@ -62,6 +70,8 @@ public abstract class EspacosFisicos {
             System.out.println(reservasDoEspaco);
         }
     }
+
+
 
     }
 

@@ -11,9 +11,11 @@ public class Laboratorio extends EspacosFisicos {
     public Laboratorio(String nomeEspaco, int capacidade, String loc, List<String> disp, List<String> equipamentos) {
         super(nomeEspaco, capacidade, loc, disp, equipamentos);
     }
+    public Laboratorio() {
 
+    }
     @Override
-    public void InformacaoEspaco() {
+    public void informacaoEspaco() {
         System.out.println("Informações do Laboratorio:");
         System.out.println("Capacidade:" + getCapacidade());
         System.out.println("Localizacao: " + getLoc());
