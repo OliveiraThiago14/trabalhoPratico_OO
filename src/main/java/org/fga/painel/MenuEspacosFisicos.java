@@ -70,7 +70,7 @@ public class MenuEspacosFisicos {
     }
 
 
-    private void desicoes(){
+    private void decisoes(){
         System.out.println("Escolha o Espaco Fisico que Deseja Reservar: ");
         System.out.println("1- Sala\n 2- Laboratorio\n 3- Auditorio ");
         int op = sc.nextInt();

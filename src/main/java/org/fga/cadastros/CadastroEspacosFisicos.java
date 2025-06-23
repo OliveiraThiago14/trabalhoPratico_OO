@@ -26,7 +26,11 @@ public class CadastroEspacosFisicos {
         if(buscarEspacos(espacos.getNomeEspaco()) != null){
             System.out.println("Espaco ja existe!");
         }
-        System.out.println("Espaco cadastrado com sucesso!");
+        else{
+            cadastrarEspacoFisico();
+            System.out.println("Espaco cadastrado com sucesso!");
+        }
+
     }
 
     public EspacosFisicos buscarEspacos(String nomeEspaco) {
