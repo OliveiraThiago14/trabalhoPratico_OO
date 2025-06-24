@@ -35,7 +35,7 @@ public class MenuEspacosFisicos {
                 listarEspacos();
                 break;
             case 3:
-                desicoes();
+                decisoes();
                 break;
             case 4:
                 Sala sala = new Sala();
@@ -90,7 +90,7 @@ public class MenuEspacosFisicos {
                 break;
             default:
                 System.out.println("Escolha um espaco valido!");
-                desicoes();
+                decisoes();
         }
     }
 
