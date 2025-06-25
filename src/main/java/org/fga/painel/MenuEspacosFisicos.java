@@ -1,6 +1,5 @@
 package org.fga.painel;
 
-import com.sun.net.httpserver.Request;
 import org.fga.cadastros.CadastroEspacosFisicos;
 import org.fga.entidades.Reserva;
 import org.fga.espacos.Auditorio;
@@ -8,6 +7,8 @@ import org.fga.espacos.EspacosFisicos;
 import org.fga.espacos.Laboratorio;
 import org.fga.espacos.Sala;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import static org.fga.cadastros.CadastroEspacosFisicos.*;
 
@@ -29,13 +30,14 @@ public class MenuEspacosFisicos {
         int escolha = sc.nextInt();
         switch (escolha) {
             case 1:
-                cadastrarEspacoFisico();
+                EspacosFisicos espacosFisicos = criarEspacoFisico();
+                cad.cadastrar(espacosFisicos);
                 break;
             case 2:
                 listarEspacos();
                 break;
             case 3:
-                desicoes();
+                decisoes();
                 break;
             case 4:
                 Sala sala = new Sala();
@@ -72,7 +74,7 @@ public class MenuEspacosFisicos {
 
     private void decisoes(){
         System.out.println("Escolha o Espaco Fisico que Deseja Reservar: ");
-        System.out.println("1- Sala\n 2- Laboratorio\n 3- Auditorio ");
+        System.out.println("1- Sala\n 2- Laboratorio\n 3- Auditorio\n 4- Voltar ao Menu");
         int op = sc.nextInt();
 
         switch (op) {
@@ -88,12 +90,49 @@ public class MenuEspacosFisicos {
                 Auditorio auditorio = new Auditorio();
                 auditorio.reservarEspaco(infoReserv());
                 break;
+            case 4:
+                MenuEspaco();
+                break;
             default:
                 System.out.println("Escolha um espaco valido!");
-                desicoes();
+                decisoes();
+                break;
         }
     }
 
+    private EspacosFisicos criarEspacoFisico(){
+        List<String> equipamentos = new ArrayList<>();
+        List<String> disp = new ArrayList<>();
+        System.out.println("Informe o tipo de espaço fisico que deseja cadastrar: ");
+        System.out.println("1. Sala\n 2. Laboratorio\n 3. Auditorio");
+        int tipoDeEspaco  = sc.nextInt();
+        System.out.println("Informe o nome do espaco: ");
+        String nomeEspaco = sc.next();
+        sc.nextLine();
+        System.out.println("Informe a capacidade: ");
+        int capacidade = sc.nextInt();
+        System.out.println("Informe o localizacao: ");
+        String loc = sc.nextLine();
+        System.out.println("Informe a quantida de equipamentos: ");
+        int qtd = sc.nextInt();
 
+        while(qtd > 0) {
+            String equip = sc.nextLine();
+            equipamentos.add(equip);
+            qtd--;
+        }
 
+        switch (tipoDeEspaco) {
+            case 1:
+                return new Sala(nomeEspaco, capacidade, loc, disp , equipamentos);
+            case 2:
+                return new Laboratorio(nomeEspaco, capacidade, loc, disp , equipamentos);
+            case 3:
+                return new Auditorio(nomeEspaco, capacidade, loc, disp , equipamentos);
+            default:
+                System.out.println("Erro ao cadastrar Espaco! Esse espaço fisico não existe");
+                break;
+        }
+        return null;
+    }
 }
