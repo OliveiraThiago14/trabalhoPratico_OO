@@ -2,6 +2,10 @@ package org.fga.painel;
 
 import org.fga.cadastros.CadastroAluno;
 
-public class MenuAluno {
-    CadastroAluno cadastroAluno = CadastroAluno.getInstacia();
+public class MenuAluno extends MenuGeral{
+
+    @Override
+    public void user(){
+        System.out.println("Aluno da Universidade");
+    }
 }

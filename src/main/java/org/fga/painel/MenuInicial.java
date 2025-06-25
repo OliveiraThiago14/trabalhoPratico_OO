@@ -3,7 +3,7 @@ package org.fga.painel;
 import java.util.Scanner;
 
 
-public abstract class Menu {
+public abstract class MenuInicial {
     public static void menu (){
         Scanner sc = new Scanner(System.in);
 
@@ -14,12 +14,15 @@ public abstract class Menu {
 
         int cargo = sc.nextInt();
 
-        switch (cargo){
-            case 1: // Servidor
-                MenuServidores;
+        MenuServidores menuServidores = new MenuServidores();
+        MenuAluno menuAluno = new MenuAluno();
 
-            case 2: //Aluno
-                MenuAluno;
+        switch (cargo){
+            case 1: // Vai para o menu do servidor
+                menuServidores.user();
+
+            case 2: // Vai para o menu do aluno
+                menuAluno.user();
         }
     }
 }
