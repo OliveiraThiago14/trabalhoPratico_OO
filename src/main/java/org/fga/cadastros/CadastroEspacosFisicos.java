@@ -28,6 +28,7 @@ public class CadastroEspacosFisicos {
         }
         else{
             cadastrarEspacoFisico();
+            listaDeEspacos.add(espacos);
             System.out.println("Espaco cadastrado com sucesso!");
         }
 
