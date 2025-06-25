@@ -12,6 +12,8 @@ public class Reserva {
     private Integer hrInicio;
     private Integer hrFim;
 
+
+
     public static boolean sobreposicao(Reserva r1, Reserva r2){
         boolean sobreposicaoDeDias = (r1.dtInicio <= r2.dtFim && r1.dtFim >= r2.dtInicio);
 
@@ -23,5 +25,6 @@ public class Reserva {
 
         return sobreposicaoDeHoras;
     }
+
 
 }
