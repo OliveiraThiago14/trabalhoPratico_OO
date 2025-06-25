@@ -21,8 +21,5 @@ public abstract class Menu {
             case 2: //Aluno
                 MenuAluno;
         }
-
-
-
     }
 }
