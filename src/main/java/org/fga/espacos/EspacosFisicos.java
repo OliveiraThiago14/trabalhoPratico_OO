@@ -2,6 +2,7 @@ package org.fga.espacos;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.fga.util.Common;
 import org.fga.entidades.Reserva;
 
 import java.util.ArrayList;
@@ -10,8 +11,9 @@ import java.util.Scanner;
 @Getter
 @Setter
 
-public abstract class EspacosFisicos {
+public abstract class EspacosFisicos extends Common{
     private String nomeEspaco;
+    private Integer id;
     private int capacidade;
     private String loc;
     private List<String> equipamentos;
