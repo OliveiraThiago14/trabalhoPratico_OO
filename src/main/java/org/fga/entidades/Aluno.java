@@ -2,12 +2,14 @@ package org.fga.entidades;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 @Getter
+@ToString(callSuper = true)
 @Setter
 public class Aluno extends Usuario{
     private String curso;

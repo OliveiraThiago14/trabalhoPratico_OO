@@ -24,8 +24,7 @@ public class MenuEspacosFisicos {
         System.out.println("3 - Fazer Reserva de Espaco Fisicos");
         System.out.println("4 - Exibir Historico de Reservas Feitas");
         System.out.println("5 - Sair do Menu");
-        CadastroEspacosFisicos cad = new CadastroEspacosFisicos();
-
+        CadastroEspacosFisicos cad = CadastroEspacosFisicos.getInstancia();
 
         int escolha = sc.nextInt();
         switch (escolha) {
@@ -34,7 +33,7 @@ public class MenuEspacosFisicos {
                 cad.cadastrar(espacosFisicos);
                 break;
             case 2:
-                listarEspacos();
+                cad.listarEspacos();
                 break;
             case 3:
                 decisoes();

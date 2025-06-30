@@ -2,21 +2,25 @@ package org.fga.espacos;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.fga.util.Common;
 import org.fga.entidades.Reserva;
+import org.fga.util.Pair;
+import org.fga.util.TipoReserva;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 @Getter
 @Setter
-
-public abstract class EspacosFisicos {
+public abstract class EspacosFisicos extends Common{
     private String nomeEspaco;
+    private Integer id;
     private int capacidade;
     private String loc;
     private List<String> equipamentos;
     private List<Reserva> reservasDoEspaco;
-    private List<Reserva> historicoDeReservasFeitas;
+    private List<Pair<String, Reserva>> historicoDeReservasFeitas;
 
     Scanner sc = new Scanner(System.in);
     public EspacosFisicos(String nomeEspaco ,int capacidade, String loc, List<String> disp, List<String> equipamentos) {
@@ -32,11 +36,10 @@ public abstract class EspacosFisicos {
     }
 
     public void reser(){
-        for(Reserva reserva : getHistoricoDeReservasFeitas()){
-            System.out.println(reserva);
+        for(var reserva : getHistoricoDeReservasFeitas()){
+            System.out.println(reserva.getSecond());
         }
     }
-
 
 
     public boolean reservarEspaco(Reserva novaReserva) {
@@ -47,16 +50,17 @@ public abstract class EspacosFisicos {
             }
         }
         System.out.println("Reserva Concedida!");
-        getReservasDoEspaco().add(novaReserva);
-        getHistoricoDeReservasFeitas().add(novaReserva);
+        reservasDoEspaco.add(novaReserva);
+        historicoDeReservasFeitas.add(new Pair<>(TipoReserva.ADD.getDescricao(), novaReserva));
         return true;
     }
 
-    public void removerReserva(Reserva ReservaExistente) {
-        if(getReservasDoEspaco().contains(ReservaExistente)) {
-            getReservasDoEspaco().remove(ReservaExistente);
+    public void removerReserva(Reserva reservaExistente) {
+        if(getReservasDoEspaco().contains(reservaExistente)) {
+            getReservasDoEspaco().remove(reservaExistente);
             System.out.println("Reserva removida com sucesso!");
         }
+        historicoDeReservasFeitas.add(new Pair<>(TipoReserva.DELETE.getDescricao(), reservaExistente));
         System.out.println("Reserva não encontrada!");
     }
 

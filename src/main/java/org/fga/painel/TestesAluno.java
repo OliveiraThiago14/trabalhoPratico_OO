@@ -21,7 +21,7 @@ public class TestesAluno {
         a.cadastrar(a3);
         a.cadastrar(a4);
         Aluno a33 = new Aluno("Gustavo", "guga@gmail.com", "982345567", "0901", "eng de software", "241011455", "terceiro");
-        a.atualizar("241011455", a33);
+        //a.atualizar("241011455", a33);
 
         CadastroServidor cadastroServidores = CadastroServidor.getInstancia();
         CadastroProfessor cadastroProfessores = CadastroProfessor.getInstancia();
