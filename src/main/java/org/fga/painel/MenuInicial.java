@@ -3,7 +3,7 @@ package org.fga.painel;
 import java.util.Scanner;
 
 
-public abstract class Menu {
+public abstract class MenuInicial {
     public static void menu (){
         Scanner sc = new Scanner(System.in);
 
