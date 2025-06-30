@@ -1,7 +1,10 @@
 package org.fga.painel;
 
 import org.fga.cadastros.CadastroAluno;
+import org.fga.entidades.Aluno;
 
 public class MenuAluno {
-    CadastroAluno cadastroAluno = CadastroAluno.getInstacia();
+    public static void main(String[] args) {
+        CadastroAluno cadastroAluno = CadastroAluno.getInstacia();
+    }
 }

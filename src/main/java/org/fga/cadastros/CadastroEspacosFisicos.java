@@ -15,7 +15,7 @@ public class CadastroEspacosFisicos extends Cadastro<EspacosFisicos> {
         return instancia;
     }
 
-    public static Integer getIdByNome(String nome) {
+    public Integer getIdByNome(String nome) {
         for (Pair<EspacosFisicos, OffsetDateTime> found : getInstancia().db) {
             if (found.getFirst().getNomeEspaco().equals(nome)) {
                 return found.getFirst().getId();

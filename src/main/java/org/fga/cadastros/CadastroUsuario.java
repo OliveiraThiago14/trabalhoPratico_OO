@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CadastroUsuario<T extends Usuario> extends Cadastro<T> {
-    protected Integer getIdByMatricula(String matricula) {
+    public Integer getIdByMatricula(String matricula) {
         for (Pair<T, OffsetDateTime> found : db) {
             if (found.getFirst().getMatricula().equals(matricula)) {
                 return found.getFirst().getId();
