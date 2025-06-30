@@ -1,14 +1,24 @@
 package org.fga.cadastros;
 
 import org.fga.entidades.Aluno;
+import org.fga.util.Pair;
+
+import java.time.OffsetDateTime;
 
 public class CadastroAluno extends CadastroUsuario<Aluno> {
     private static CadastroAluno instancia;
 
-    public static CadastroAluno getInstacia() {
+    public static CadastroAluno getInstancia() {
         if (instancia != null) {
             return instancia;
         }
         return instancia = new CadastroAluno();
+    }
+
+    public void listarAluno(){
+        for (Pair<Aluno, OffsetDateTime> par : db){
+            System.out.println("Aluno: " + par.getFirst().toString());
+        }
+        System.out.println("\nAlunos cadastrados:");
     }
 }
