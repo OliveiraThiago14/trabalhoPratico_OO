@@ -1,14 +1,12 @@
 package org.fga.painel;
 
 import org.fga.cadastros.CadastroAluno;
-import org.fga.cadastros.CadastroEspacosFisicos;
 import org.fga.entidades.Aluno;
-import org.fga.painel.MenuEspacosFisicos;
 import java.util.Scanner;
 
 public class MenuAluno {
     Scanner sc = new Scanner(System.in);
-    public void goToMenuAluno() {
+    protected void goToMenuAluno() {
         System.out.println("\nBem vindo ao Menu de Aluno\n");
         System.out.println("1 - Cadastrar Aluno");
         System.out.println("2 - Mostrar Alunos");
@@ -16,7 +14,7 @@ public class MenuAluno {
 
         int escolha = sc.nextInt();
         CadastroAluno cad = CadastroAluno.getInstancia();
-        MenuEspacosFisicos menuEspaco = new MenuEspacosFisicos;
+        MenuEspacosFisicos menuEspaco = new MenuEspacosFisicos();
 
         switch (escolha) {
             // Cadastro de Aluno
@@ -31,7 +29,7 @@ public class MenuAluno {
         }
     }
     private void cadastro(){
-        CadastroAluno cadAluno = CadastroAluno.getInstacia();
+        CadastroAluno cadAluno = CadastroAluno.getInstancia();
         //nome
         System.out.println("Qual o seu nome? ");
         String nome = sc.nextLine();
