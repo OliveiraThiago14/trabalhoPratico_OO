@@ -1,5 +1,6 @@
 package org.fga.painel;
 
+import org.fga.cadastros.CadastroAuditorio;
 import org.fga.cadastros.CadastroEspacosFisicos;
 import org.fga.entidades.Reserva;
 import org.fga.espacos.Auditorio;
@@ -25,6 +26,7 @@ public class MenuEspacosFisicos {
         System.out.println("4 - Exibir Historico de Reservas Feitas");
         System.out.println("5 - Sair do Menu");
         CadastroEspacosFisicos cad = CadastroEspacosFisicos.getInstancia();
+        CadastroAuditorio cadastroAuditorio = new CadastroAuditorio();
 
         int escolha = sc.nextInt();
         switch (escolha) {
@@ -40,11 +42,11 @@ public class MenuEspacosFisicos {
                 break;
             case 4:
                 Sala sala = new Sala();
-                sala.reser();
+                sala.historicoReservas();
                 Laboratorio laboratorio = new Laboratorio();
-                laboratorio.reser();
+                laboratorio.historicoReservas();
                 Auditorio auditorio = new Auditorio();
-                auditorio.reser();
+                auditorio.historicoReservas();
                 break;
             case 5:
                 System.exit(0);
@@ -112,7 +114,7 @@ public class MenuEspacosFisicos {
         int capacidade = sc.nextInt();
         System.out.println("Informe o localizacao: ");
         String loc = sc.nextLine();
-        System.out.println("Informe a quantida de equipamentos: ");
+        System.out.println("Informe a quantidade de equipamentos: ");
         int qtd = sc.nextInt();
 
         while(qtd > 0) {
