@@ -16,10 +16,12 @@ public abstract class Menu {
 
         switch (cargo){
             case 1: // Servidor
-                MenuServidores;
+                MenuServidores servidor = new MenuServidores();
+
 
             case 2: //Aluno
-                MenuAluno;
+                MenuAluno aluno = new MenuAluno();
+                aluno.goToMenuAluno();
         }
     }
 }
