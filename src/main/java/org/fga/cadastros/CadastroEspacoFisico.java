@@ -1,20 +1,18 @@
 package org.fga.cadastros;
 
-import lombok.ToString;
 import org.fga.entidades.Reserva;
-import org.fga.espacos.EspacosFisicos;
+import org.fga.espacos.EspacoFisico;
 import org.fga.util.Pair;
 import org.fga.util.TipoReserva;
 
-import javax.print.attribute.standard.PrinterIsAcceptingJobs;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CadastroEspacosFisicos<T extends EspacosFisicos> extends Cadastro<T> {
-    List<Pair<String, String>> equipamentos = new ArrayList<>();
-    private List<Pair<String, Reserva>> historicoDeReservasFeitas;
-    private List<Reserva> reservasDoEspaco;
+public class CadastroEspacoFisico<T extends EspacoFisico> extends Cadastro<T> {
+    List<Pair<String, Integer>> equipamentos = new ArrayList<>();
+    private List<Pair<String, Reserva>> historicoDeReservasFeitas = new ArrayList<>();
+    private List<Reserva> reservasDoEspaco = new ArrayList<>();
 
     public Integer getIdByNome(String nome) {
         for (Pair<T, OffsetDateTime> found : db) {
@@ -32,14 +30,14 @@ public class CadastroEspacosFisicos<T extends EspacosFisicos> extends Cadastro<T
         }
     }
 
-    public void cadastrarEquipamento(String nome, String descricao) {
-        for (Pair<String, String> equipamento : equipamentos) {
+    public void cadastrarEquipamento(String nome, Integer quantidade) {
+        for (Pair<String, Integer> equipamento : equipamentos) {
             if (equipamento.getFirst().equals(nome)) {
                 System.out.println("Equipamento já cadastrado!");
                 return;
             }
         }
-        equipamentos.add(new Pair<>(nome, descricao));
+        equipamentos.add(new Pair<>(nome, quantidade));
     }
 
     public boolean reservarEspaco(Reserva novaReserva) {

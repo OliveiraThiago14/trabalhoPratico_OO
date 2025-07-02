@@ -2,7 +2,7 @@ package org.fga.cadastros;
 
 import org.fga.espacos.Sala;
 
-public class CadastroSala extends CadastroEspacosFisicos<Sala>{
+public class CadastroSala extends CadastroEspacoFisico<Sala> {
     private static CadastroSala instancia;
 
     public static synchronized CadastroSala getInstancia() {
