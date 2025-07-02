@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 @Getter
-@ToString(callSuper = true)
 @Setter
 public class Aluno extends Usuario{
     private String curso;
@@ -20,4 +19,15 @@ public class Aluno extends Usuario{
         this.curso = curso;
         this.semestre = semestre;
     }
+
+   @Override
+   public String toString() {
+       return "Aluno: " +
+               "nome='" + getNome() + '\'' +
+               ", email='" + getEmail() + '\'' +
+               ", telefone='" + getTelefone() + '\'' +
+               ", matricula='" + getMatricula() + '\'' +
+               ", curso='" + curso + '\'' +
+               ", semestre='" + semestre + '\'';
+   }
 }
