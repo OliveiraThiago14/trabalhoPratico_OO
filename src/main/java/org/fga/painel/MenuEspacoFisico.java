@@ -10,7 +10,7 @@ import org.fga.espacos.Sala;
 
 import java.util.Scanner;
 
-public class MenuEspacoFisico {
+public class MenuEspacoFisico{
     static Scanner sc = new Scanner(System.in);
     static CadastroAuditorio cadastroAuditorio = CadastroAuditorio.getInstancia();
     static CadastroLaboratorio cadastroLaboratorio = CadastroLaboratorio.getInstancia();

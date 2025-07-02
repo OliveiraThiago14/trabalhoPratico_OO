@@ -1,8 +1,7 @@
 package org.fga.painel;
 
-public class MenuProfessor implements Menu{
+public class MenuProfessor{
 
-    @Override
     public void goToMenu() {
 
     }
