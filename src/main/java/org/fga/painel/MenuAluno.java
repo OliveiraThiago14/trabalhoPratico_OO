@@ -20,7 +20,7 @@ public class MenuAluno {
         switch (escolha) {
             case 1 -> cadastro();
             case 2 -> cadastroAluno.listarAluno();
-            case 3 -> menuEspaco.menuEspaco();
+            case 3 -> menuEspaco.goToMenu();
             case 4 -> MenuInicial.menuInicial();
             default -> goToMenuAluno();
         }

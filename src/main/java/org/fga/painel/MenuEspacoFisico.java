@@ -16,7 +16,7 @@ public class MenuEspacoFisico {
     static CadastroLaboratorio cadastroLaboratorio = CadastroLaboratorio.getInstancia();
     static CadastroSala cadastroSala = CadastroSala.getInstancia();
 
-    public static void menuEspaco() {
+    public static void goToMenu() {
 
         System.out.println("\nBem vindo ao Menu de Espacos Fisicos\nEscolha um opção: ");
         System.out.println("1 - Cadastrar Espaco Fisico");
@@ -39,10 +39,10 @@ public class MenuEspacoFisico {
             }
             default -> {
                 System.out.println("Escolha uma opção valida!");
-                menuEspaco();
+                goToMenu();
             }
         }
-        menuEspaco();
+        goToMenu();
     }
 
     public static Reserva infoReserva(){
@@ -61,7 +61,7 @@ public class MenuEspacoFisico {
     private static void listarEspacos() {
         int tipoEspaco = escolhaEspaco();
         if(tipoEspaco == -1){
-            menuEspaco();
+            goToMenu();
             return;
         }
 
@@ -75,7 +75,7 @@ public class MenuEspacoFisico {
     private static void iniciarReserva(){
         int op = escolhaEspaco();
         if(op == -1){
-            menuEspaco();
+            goToMenu();
             return;
         }
 
@@ -104,7 +104,7 @@ public class MenuEspacoFisico {
     private static void criarEspacoFisico() {
         int tipoDeEspaco = escolhaEspaco();
         if(tipoDeEspaco == -1){
-            menuEspaco();
+            goToMenu();
             return;
         }
 
@@ -139,7 +139,7 @@ public class MenuEspacoFisico {
     private static void mostrarHistoricoReservas() {
         int tipoDeEspaco = escolhaEspaco();
         if(tipoDeEspaco == -1){
-            menuEspaco();
+            goToMenu();
             return;
         }
 
@@ -154,7 +154,7 @@ public class MenuEspacoFisico {
     private static void cadastrarEquipamento() {
         int tipoDeEspaco = escolhaEspaco();
         if(tipoDeEspaco == -1){
-            menuEspaco();
+            goToMenu();
             return;
         }
 
