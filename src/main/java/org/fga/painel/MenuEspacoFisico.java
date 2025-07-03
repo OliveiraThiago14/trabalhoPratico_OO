@@ -1,17 +1,21 @@
 package org.fga.painel;
 
 import org.fga.cadastros.CadastroAuditorio;
+import org.fga.cadastros.CadastroEspacoFisico;
 import org.fga.cadastros.CadastroLaboratorio;
 import org.fga.cadastros.CadastroSala;
 import org.fga.entidades.Reserva;
 import org.fga.espacos.Auditorio;
+import org.fga.espacos.EspacoFisico;
 import org.fga.espacos.Laboratorio;
 import org.fga.espacos.Sala;
+import org.fga.exceptions.DiasExcedidosException;
+import org.fga.exceptions.HorarioIndisponivelException;
 import org.fga.util.TipoUsuario;
 
 import java.util.Scanner;
 
-public class MenuEspacoFisico{
+public class MenuEspacoFisico {
     private static final Scanner sc = new Scanner(System.in);
     private static final CadastroAuditorio cadastroAuditorio = CadastroAuditorio.getInstancia();
     private static final CadastroLaboratorio cadastroLaboratorio = CadastroLaboratorio.getInstancia();
@@ -30,12 +34,12 @@ public class MenuEspacoFisico{
 
             int escolha = sc.nextInt();
             switch (escolha) {
-                case 1 -> criarEspacoFisico();
-                case 2 -> listarEspacos();
-                case 3 -> iniciarReserva();
-                case 4 -> mostrarHistoricoReservas();
-                case 5 -> cadastrarEquipamento();
-                case 6 -> removerEspacoFisico();
+                case 1 -> criarEspacoFisico(tipo);
+                case 2 -> listarEspacos(tipo);
+                case 3 -> iniciarReserva(tipo);
+                case 4 -> mostrarHistoricoReservas(tipo);
+                case 5 -> cadastrarEquipamento(tipo);
+                case 6 -> removerEspacoFisico(tipo);
                 case 7 -> {
                     return;
                 }
@@ -44,27 +48,31 @@ public class MenuEspacoFisico{
         }
     }
 
-    private static void removerEspacoFisico() {
+    private static void removerEspacoFisico(TipoUsuario tipo) {
         int op = escolhaEspaco();
-        if(op == -1){
-            goToMenu();
+        if (op == -1) {
+            goToMenu(tipo);
             return;
         }
-
         System.out.println("Informe o nome do espaço fisico que deseja remover: ");
         sc.nextLine();
         String nomeEspaco = sc.nextLine();
-        switch (op) {
-            case 1 -> cadastroSala.delete(cadastroSala.getIdByNome(nomeEspaco));
-            case 2 -> cadastroLaboratorio.delete(cadastroLaboratorio.getIdByNome(nomeEspaco));
-            case 3 -> cadastroAuditorio.delete(cadastroAuditorio.getIdByNome(nomeEspaco));
-            default -> System.out.println("Erro ao Remover Espaco! Esse espaço fisico não existe");
+
+        CadastroEspacoFisico<?> cadastroEspacoFisico = cadastroFactory(op);
+        if(cadastroEspacoFisico == null) return;
+
+        Integer idEspaco = cadastroEspacoFisico.getIdByNome(nomeEspaco);
+
+        if(idEspaco == null) {
+            System.out.println("Erro ao Remover Espaco! Esse espaço fisico não existe");
+            return;
         }
+        cadastroEspacoFisico.delete(idEspaco);
         System.out.println("Espaço removido com sucesso!");
     }
 
 
-    public static Reserva infoReserva(TipoUsuario tipo) {
+    public static Reserva infoReserva(TipoUsuario tipo) throws DiasExcedidosException {
         System.out.println("Informe a data de inicio da sua reserva: ");
         int dtInicio = sc.nextInt();
         System.out.println("Informe a data de fim da sua reserva: ");
@@ -73,22 +81,20 @@ public class MenuEspacoFisico{
         int horInicio = sc.nextInt();
         System.out.println("Informe a hora de fim da sua reserva: ");
         int horFim = sc.nextInt();
-        if(TipoUsuario.ALUNO.equals(tipo) && dtFim - dtInicio >= 1){
-                System.out.println("Erro ao fazer a reserva! Aluno não está permitido reservar mais de um dia!");
-                infoReserva(tipo);
-                return new Reserva(null,null,null,null);
+        if (TipoUsuario.ALUNO.equals(tipo) && dtFim - dtInicio >= 1) {
+            throw new DiasExcedidosException();
+
         }
         return new Reserva(dtInicio, dtFim, horInicio, horFim);
     }
 
     private static void listarEspacos(TipoUsuario tipo) {
         int tipoEspaco = escolhaEspaco();
-        if(tipoEspaco == -1){
+        if (tipoEspaco == -1) {
             goToMenu(tipo);
             return;
         }
-
-        switch (tipoEspaco){
+        switch (tipoEspaco) {
             case 1 -> cadastroSala.listar("Sala");
             case 2 -> cadastroLaboratorio.listar("Laboratorio");
             case 3 -> cadastroAuditorio.listar("Auditorio");
@@ -97,27 +103,40 @@ public class MenuEspacoFisico{
 
     private static void iniciarReserva(TipoUsuario tipo) {
         int op = escolhaEspaco();
-        if(op == -1){
+        if (op == -1) {
             goToMenu(tipo);
             return;
         }
+        CadastroEspacoFisico<?> cadastro = cadastroFactory(op);
+        if (cadastro == null) return;
+        System.out.println("Informe o nome do espaço fisico que deseja reservar: ");
+        sc.nextLine();
+        String nomeEspaco = sc.nextLine();
 
-        switch (op) {
-            case 1 -> cadastroSala.reservarEspaco(infoReserva(tipo));
-            case 2 -> cadastroLaboratorio.reservarEspaco(infoReserva(tipo));
-            case 3 -> cadastroAuditorio.reservarEspaco(infoReserva(tipo));
-            default -> System.out.println("Erro ao cadastrar Espaco! Esse espaço fisico não existe");
+        Integer idEspaco = cadastro.getIdByNome(nomeEspaco);
+        if(idEspaco == null){
+            System.out.println("Erro ao Reservar Espaco! Esse espaço fisico não existe");
+            return;
+        }
+
+        Reserva reserva;
+        try {
+            reserva = infoReserva(tipo);
+            cadastro.reservarEspaco(reserva);
+        } catch (DiasExcedidosException e) {
+            System.out.println(e.getMessage());
+            iniciarReserva(tipo);
         }
     }
 
-    private static int escolhaEspaco(){
+    private static int escolhaEspaco() {
         System.out.println("Informe o tipo de espaço fisico que deseja realizar a acão: ");
         System.out.println("1. Sala\n2. Laboratorio\n3. Auditorio\n4. Voltar ao Menu");
         int tipoEspaco = sc.nextInt();
-        if(tipoEspaco == 4) {
+        if (tipoEspaco == 4) {
             return -1;
         }
-        if(tipoEspaco > 4 || tipoEspaco < 1){
+        if (tipoEspaco > 4 || tipoEspaco < 1) {
             System.out.println("Opção inválida! Tente novamente.");
             return escolhaEspaco();
         }
@@ -126,7 +145,7 @@ public class MenuEspacoFisico{
 
     private static void criarEspacoFisico(TipoUsuario tipo) {
         int tipoDeEspaco = escolhaEspaco();
-        if(tipoDeEspaco == -1){
+        if (tipoDeEspaco == -1) {
             goToMenu(tipo);
             return;
         }
@@ -142,41 +161,33 @@ public class MenuEspacoFisico{
         sc.nextLine();
         String loc = sc.nextLine();
 
+        CadastroEspacoFisico<?> cadastro = cadastroFactory(tipoDeEspaco);
+        if(cadastro == null) return;
+
+        EspacoFisico espacoFisico = null;
         switch (tipoDeEspaco) {
-            case 1 -> {
-                Sala sala = new Sala(nomeEspaco, capacidade, loc);
-                cadastroSala.cadastrar(sala);
-            }
-            case 2 -> {
-                Laboratorio laboratorio = new Laboratorio(nomeEspaco, capacidade, loc);
-                cadastroLaboratorio.cadastrar(laboratorio);
-            }
-            case 3 -> {
-                Auditorio auditorio = new Auditorio(nomeEspaco, capacidade, loc);
-                cadastroAuditorio.cadastrar(auditorio);
-            }
-            default -> System.out.println("Erro ao cadastrar Espaco! Esse espaço fisico não existe");
+            case 1 -> espacoFisico = new Sala(nomeEspaco, capacidade, loc);
+            case 2 -> espacoFisico = new Laboratorio(nomeEspaco, capacidade, loc);
+            case 3 -> espacoFisico = new Auditorio(nomeEspaco, capacidade, loc);
         }
+        ((CadastroEspacoFisico) cadastro).cadastrar(espacoFisico);
     }
 
     private static void mostrarHistoricoReservas(TipoUsuario tipo) {
         int tipoDeEspaco = escolhaEspaco();
-        if(tipoDeEspaco == -1){
+        if (tipoDeEspaco == -1) {
             goToMenu(tipo);
             return;
         }
 
-        switch (tipoDeEspaco) {
-            case 1 -> cadastroSala.historicoReservas();
-            case 2 -> cadastroLaboratorio.historicoReservas();
-            case 3 -> cadastroAuditorio.historicoReservas();
-            default -> System.out.println("Erro ao mostrar histórico de reservas! Esse espaço fisico não existe");
-        }
+        CadastroEspacoFisico<?> cadastro = cadastroFactory(tipoDeEspaco);
+        if (cadastro == null) return;
+        cadastro.historicoReservas();
     }
 
     private static void cadastrarEquipamento(TipoUsuario tipo) {
         int tipoDeEspaco = escolhaEspaco();
-        if(tipoDeEspaco == -1){
+        if (tipoDeEspaco == -1) {
             goToMenu(tipo);
             return;
         }
@@ -188,11 +199,26 @@ public class MenuEspacoFisico{
         System.out.println("Informe a quantidade desse equipamento no espaco: ");
         int quantidade = sc.nextInt();
 
-        switch (tipoDeEspaco) {
-            case 1 -> cadastroSala.cadastrarEquipamento(nomeEquipamento, quantidade);
-            case 2 -> cadastroLaboratorio.cadastrarEquipamento(nomeEquipamento, quantidade);
-            case 3 -> cadastroAuditorio.cadastrarEquipamento(nomeEquipamento, quantidade);
-            default -> System.out.println("Erro ao cadastrar Equipamento! Esse espaço fisico não existe");
+        CadastroEspacoFisico<?> cadastro = cadastroFactory(tipoDeEspaco);
+        if (cadastro == null) return;
+        cadastro.cadastrarEquipamento(nomeEquipamento, quantidade);
+    }
+
+    public static CadastroEspacoFisico<?> cadastroFactory(int op){
+        switch(op){
+            case 1 -> {
+                return CadastroSala.getInstancia();
+            }
+            case 2 -> {
+                return CadastroLaboratorio.getInstancia();
+            }
+            case 3 -> {
+                return CadastroAuditorio.getInstancia();
+            }
+            default -> {
+                System.out.println("Erro! Esse espaço fisico não existe");
+                return null;
+            }
         }
     }
 }

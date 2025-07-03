@@ -16,6 +16,10 @@ public class Professor extends Servidor {
         this.curso = curso;
     }
 
+    public static void main(String[] args) {
+        Professor primeiroServidor = new Professor("thiago", "gustavo@gmail.com", "guilherme", "pedro", "adm", "tudo", "tudo");
+        System.out.println(primeiroServidor.toString());
+    }
     @Override
     public String toString() {
         return "Professor{" +

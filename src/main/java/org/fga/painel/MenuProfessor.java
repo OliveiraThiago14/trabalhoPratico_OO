@@ -3,6 +3,7 @@ package org.fga.painel;
 import org.fga.cadastros.CadastroAluno;
 import org.fga.cadastros.CadastroProfessor;
 import org.fga.exceptions.EmailSenhaIncorretaException;
+import org.fga.util.TipoUsuario;
 
 import java.util.Scanner;
 
@@ -33,7 +34,7 @@ public class MenuProfessor {
             sc.nextLine();
 
             switch (escolha) {
-                case 1 -> MenuEspacoFisico.goToMenu();
+                case 1 -> MenuEspacoFisico.goToMenu(TipoUsuario.PROFESSOR);
                 case 2 -> cadastroAluno.listarAluno();
                 case 3 -> {
                     return;

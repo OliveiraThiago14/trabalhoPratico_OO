@@ -13,12 +13,6 @@ public abstract class MenuInicial {
 
             int cargo = sc.nextInt();
 
-<<<<<<< HEAD
-        switch (cargo){
-            case 1 -> MenuServidores.goToMenuServidores();
-            case 2 -> MenuAluno.goToMenuAluno();
-
-=======
             switch (cargo) {
                 case 1 -> MenuProfessor.goToMenu();
                 case 2 -> MenuAluno.goToMenuAluno();
@@ -26,8 +20,6 @@ public abstract class MenuInicial {
                     return;
                 }
             }
->>>>>>> 1f1e54eafaec6c574a969cdf2ed3cca87a268540
         }
     }
-
 }
