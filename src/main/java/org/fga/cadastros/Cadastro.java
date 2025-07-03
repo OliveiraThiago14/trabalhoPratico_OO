@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cadastro<T extends Common> {
+public abstract class Cadastro<T extends Common> {
     @Getter
     protected Integer num = 0;
     protected List<Pair<T, OffsetDateTime>> db = new ArrayList<>();
@@ -40,4 +40,6 @@ public class Cadastro<T extends Common> {
         }
         return false;
     }
+
+    protected abstract void listar(String tipo);
 }

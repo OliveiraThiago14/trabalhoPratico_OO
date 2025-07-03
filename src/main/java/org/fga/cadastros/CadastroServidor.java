@@ -11,4 +11,8 @@ public class CadastroServidor extends CadastroUsuario<ServidorAdm>{
         }
         return instancia = new CadastroServidor();
     }
+
+    public static listarServidor(){
+
+    }
 }
