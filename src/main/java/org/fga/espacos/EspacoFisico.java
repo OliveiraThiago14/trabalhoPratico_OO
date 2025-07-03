@@ -19,7 +19,7 @@ public abstract class EspacoFisico extends Common{
 
     @Override
     public String toString() {
-        return "Nome do Espaco: " + nomeEspaco + "\nCapacidade: " + capacidade + "\nLocalizacao: " + localizacao;
+        return "Nome do Espaco: " + nomeEspaco + ", Capacidade: " + capacidade + ", Localizacao: " + localizacao;
     }
 }
 

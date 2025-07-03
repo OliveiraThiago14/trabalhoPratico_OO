@@ -9,13 +9,13 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CadastroEspacoFisico<T extends EspacoFisico> extends Cadastro<T> {
+public class CadastroEspacoFisico extends Cadastro<EspacoFisico> {
     List<Pair<String, Integer>> equipamentos = new ArrayList<>();
     private List<Pair<String, Reserva>> historicoDeReservasFeitas = new ArrayList<>();
     private List<Reserva> reservasDoEspaco = new ArrayList<>();
 
     public Integer getIdByNome(String nome) {
-        for (Pair<T, OffsetDateTime> found : db) {
+        for (Pair<EspacoFisico, OffsetDateTime> found : db) {
             if (found.getFirst().getNomeEspaco().equals(nome)) {
                 return found.getFirst().getId();
             }

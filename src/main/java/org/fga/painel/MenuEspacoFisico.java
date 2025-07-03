@@ -10,7 +10,6 @@ import org.fga.espacos.EspacoFisico;
 import org.fga.espacos.Laboratorio;
 import org.fga.espacos.Sala;
 import org.fga.exceptions.DiasExcedidosException;
-import org.fga.exceptions.HorarioIndisponivelException;
 import org.fga.util.TipoUsuario;
 
 import java.util.Scanner;
@@ -58,7 +57,7 @@ public class MenuEspacoFisico {
         sc.nextLine();
         String nomeEspaco = sc.nextLine();
 
-        CadastroEspacoFisico<?> cadastroEspacoFisico = cadastroFactory(op);
+        CadastroEspacoFisico cadastroEspacoFisico = cadastroFactory(op);
         if(cadastroEspacoFisico == null) return;
 
         Integer idEspaco = cadastroEspacoFisico.getIdByNome(nomeEspaco);
@@ -107,7 +106,7 @@ public class MenuEspacoFisico {
             goToMenu(tipo);
             return;
         }
-        CadastroEspacoFisico<?> cadastro = cadastroFactory(op);
+        CadastroEspacoFisico cadastro = cadastroFactory(op);
         if (cadastro == null) return;
         System.out.println("Informe o nome do espaço fisico que deseja reservar: ");
         sc.nextLine();
@@ -161,7 +160,7 @@ public class MenuEspacoFisico {
         sc.nextLine();
         String loc = sc.nextLine();
 
-        CadastroEspacoFisico<?> cadastro = cadastroFactory(tipoDeEspaco);
+        CadastroEspacoFisico cadastro = cadastroFactory(tipoDeEspaco);
         if(cadastro == null) return;
 
         EspacoFisico espacoFisico = null;
@@ -170,7 +169,7 @@ public class MenuEspacoFisico {
             case 2 -> espacoFisico = new Laboratorio(nomeEspaco, capacidade, loc);
             case 3 -> espacoFisico = new Auditorio(nomeEspaco, capacidade, loc);
         }
-        ((CadastroEspacoFisico) cadastro).cadastrar(espacoFisico);
+        cadastro.cadastrar(espacoFisico);
     }
 
     private static void mostrarHistoricoReservas(TipoUsuario tipo) {
@@ -180,7 +179,7 @@ public class MenuEspacoFisico {
             return;
         }
 
-        CadastroEspacoFisico<?> cadastro = cadastroFactory(tipoDeEspaco);
+        CadastroEspacoFisico cadastro = cadastroFactory(tipoDeEspaco);
         if (cadastro == null) return;
         cadastro.historicoReservas();
     }
@@ -199,12 +198,12 @@ public class MenuEspacoFisico {
         System.out.println("Informe a quantidade desse equipamento no espaco: ");
         int quantidade = sc.nextInt();
 
-        CadastroEspacoFisico<?> cadastro = cadastroFactory(tipoDeEspaco);
+        CadastroEspacoFisico cadastro = cadastroFactory(tipoDeEspaco);
         if (cadastro == null) return;
         cadastro.cadastrarEquipamento(nomeEquipamento, quantidade);
     }
 
-    public static CadastroEspacoFisico<?> cadastroFactory(int op){
+    public static CadastroEspacoFisico cadastroFactory(int op){
         switch(op){
             case 1 -> {
                 return CadastroSala.getInstancia();

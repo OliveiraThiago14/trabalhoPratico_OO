@@ -53,7 +53,7 @@ public class Cadastro<T extends Common> {
     public void listar(String tipo){
         System.out.println("\n" + tipo + "s cadastrados:");
         for (Pair<T, OffsetDateTime> par : db){
-            System.out.println(tipo + ": " + par.getFirst().toString());
+            System.out.println(par.getFirst().toString());
         }
     }
 }
