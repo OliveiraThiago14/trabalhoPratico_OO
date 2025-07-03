@@ -1,9 +1,12 @@
 package org.fga.painel;
 
 import org.fga.cadastros.CadastroAluno;
+import org.fga.cadastros.CadastroProfessor;
 import org.fga.cadastros.CadastroServidor;
 import org.fga.entidades.Aluno;
+import org.fga.entidades.Professor;
 import org.fga.entidades.Servidor;
+import org.fga.entidades.ServidorAdm;
 import org.fga.exceptions.EmailSenhaIncorretaException;
 
 import java.util.Scanner;
@@ -11,6 +14,8 @@ import java.util.Scanner;
 public class MenuServidor {
     private static final Scanner sc = new Scanner(System.in);
     private static final CadastroServidor cadastroServidor = CadastroServidor.getInstancia();
+    private static final CadastroAluno cadastroAluno = CadastroAluno.getInstancia();
+    private static final CadastroProfessor cadastroProfessor = CadastroProfessor.getInstancia();
 
     public static void goToMenuServidor(){
         System.out.println("Informe o seu email:");
@@ -25,26 +30,32 @@ public class MenuServidor {
         }
         while(true) {
             System.out.println("Bem vindo ao menu dos servidores\nEscolha uma opcao");
-            System.out.println("1 - Cadastrar Servidores");
+            System.out.println("1 - Cadastrar Servidor");
             System.out.println("2 - Mostrar Servidores");
-            System.out.println("3 - Ir ao Menu de Espaços");
-            System.out.println("4 - Cadastrar Aluno");
+            System.out.println("3 - Cadastrar Aluno");
+            System.out.println("4 - Mostrar Alunos");
             System.out.println("5 - Cadastrar Professor");
-            System.out.println("6 - Voltar ao Menu Inicial");
+            System.out.println("4 - Mostrar Professores");
+            System.out.println("7 - Ir ao Menu de Espaços");
+            System.out.println("8 - Voltar ao Menu Inicial");
 
             int escolha = sc.nextInt();
-            CadastroServidor cadastroServidor = CadastroServidor.getInstancia();
-            MenuEspacoFisico menuEspaco = new MenuEspacoFisico();
 
             switch (escolha) {
                 case 1 -> cadastroDoServidor();
-                case 2 -> cadastroServidor.listarServidor();
+                case 2 -> cadastroServidor.listar("Servidor");
+                case 3 -> cadastroDoAluno();
+                case 4 -> cadastroAluno.listar("Aluno");
+                case 5 -> cadastroDoProfessor();
+                case 6 -> cadastroProfessor.listar("Professor");
+                case 7 -> MenuEspacoFisico.menuEspaco();
+                case 8 -> MenuInicial.menuInicial();
+                default -> goToMenuServidor();
             }
         }
     }
 
     private static void cadastroDoAluno(){
-        CadastroAluno cadastroAluno = CadastroAluno.getInstancia();
         //nome
         System.out.println("Qual o seu nome? ");
         sc.nextLine();
@@ -102,11 +113,45 @@ public class MenuServidor {
         //cargo
         System.out.println("Qual o seu cargo? ");
         String cargo = sc.nextLine();
+        //departamento
+        System.out.println("Qual o seu departamento? ");
+        String departamento = sc.nextLine();
 
-        Servidor servidor = new Servidor(nome, email, telefone, senha, matricula, cargo);
+        ServidorAdm servidor = new ServidorAdm(nome, email, telefone, senha, matricula, cargo, departamento);
 
         cadastroServidor.cadastrar(servidor);
 
-        System.out.println("Aluno cadastrado com sucesso!");
+        System.out.println("Servidor cadastrado com sucesso!");
+    }
+
+    private static void cadastroDoProfessor(){
+        //nome
+        System.out.println("Qual o seu nome? ");
+        sc.nextLine();
+        String nome = sc.nextLine();
+        //email
+        System.out.println("Qual o seu email? ");
+        String email = sc.nextLine();
+        //telefone
+        System.out.println("Qual o seu telfone? ");
+        String telefone = sc.nextLine();
+        //senha
+        System.out.println("Qual a sua senha? ");
+        String senha = sc.nextLine();
+        //matricula
+        System.out.println("Qual a sua matricula? ");
+        String matricula = sc.nextLine();
+        //cargo
+        System.out.println("Qual o seu cargo? ");
+        String cargo = sc.nextLine();
+        //curso
+        System.out.println("Qual o seu curso? ");
+        String curso = sc.nextLine();
+
+        Professor professor = new Professor(nome, email, telefone, senha, matricula, cargo, curso);
+
+        cadastroProfessor.cadastrar(professor);
+
+        System.out.println("Professor cadastrado com sucesso!");
     }
 }

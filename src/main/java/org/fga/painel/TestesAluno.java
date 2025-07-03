@@ -7,7 +7,7 @@ import org.fga.entidades.Aluno;
 import org.fga.entidades.Professor;
 
 public class TestesAluno {
-    public static void main(String[] args) {
+    public static void main() {
         //Aluno a1,a2,a3,a4;
         //a1 = new Aluno("Thiago", "thi@aluno.unb.br", "61982898289","0101","engenharias","241011600", "terceiro");
         //a2 = new Aluno("Pedro", "pam@gmail.com", "61981818982", "0000", "eng de software", "241011655", "terceiro");

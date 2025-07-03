@@ -15,11 +15,4 @@ public class CadastroAluno extends CadastroUsuario<Aluno> {
         return instancia = new CadastroAluno();
     }
 
-    @Override
-    public void listar(String tipo){
-        System.out.println("\n" + tipo +" cadastrados:");
-        for (Pair<Aluno, OffsetDateTime> par : db){
-            System.out.println("\n" + tipo + " " + par.getFirst().toString());
-        }
-    }
 }

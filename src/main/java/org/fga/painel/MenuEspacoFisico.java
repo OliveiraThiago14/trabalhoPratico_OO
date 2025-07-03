@@ -33,10 +33,7 @@ public class MenuEspacoFisico {
             case 3 -> iniciarReserva();
             case 4 -> mostrarHistoricoReservas();
             case 5 -> cadastrarEquipamento();
-            case 6 -> {
-                MenuAluno.goToMenuAluno();
-                return;
-            }
+            case 6 -> MenuInicial.menuInicial();
             default -> {
                 System.out.println("Escolha uma opção valida!");
                 menuEspaco();
