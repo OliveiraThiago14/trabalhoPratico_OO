@@ -7,6 +7,8 @@ import org.fga.util.Common;
 @Setter
 @AllArgsConstructor
 public class Usuario extends Common {
+    public Usuario() {
+    }
     private String nome;
     private String email;
     private String telefone;

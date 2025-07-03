@@ -21,7 +21,11 @@ public class Aluno extends Usuario{
         this.semestre = semestre;
     }
 
-   @Override
+    public Aluno() {
+
+    }
+
+    @Override
    public String toString() {
        return "Aluno: " +
                "nome='" + getNome() + '\'' +

@@ -2,6 +2,8 @@ package org.fga.painel;
 
 import org.fga.cadastros.CadastroAluno;
 import org.fga.entidades.Aluno;
+import org.fga.util.TipoUsuario;
+
 import java.util.Scanner;
 
 public class MenuAluno {
@@ -20,7 +22,7 @@ public class MenuAluno {
         switch (escolha) {
             case 1 -> cadastro();
             case 2 -> cadastroAluno.listarAluno();
-            case 3 -> menuEspaco.goToMenu();
+            case 3 -> menuEspaco.goToMenu(TipoUsuario.ALUNO);
             case 4 -> MenuInicial.menuInicial();
             default -> goToMenuAluno();
         }

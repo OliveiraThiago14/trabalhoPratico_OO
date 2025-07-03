@@ -1,15 +1,13 @@
 package org.fga.painel;
 
 import org.fga.cadastros.CadastroAuditorio;
-import org.fga.cadastros.CadastroEspacoFisico;
 import org.fga.cadastros.CadastroLaboratorio;
 import org.fga.cadastros.CadastroSala;
-import org.fga.entidades.Aluno;
 import org.fga.entidades.Reserva;
-import org.fga.entidades.Usuario;
 import org.fga.espacos.Auditorio;
 import org.fga.espacos.Laboratorio;
 import org.fga.espacos.Sala;
+import org.fga.util.TipoUsuario;
 
 import java.util.Scanner;
 
@@ -19,8 +17,8 @@ public class MenuEspacoFisico{
     private static final CadastroLaboratorio cadastroLaboratorio = CadastroLaboratorio.getInstancia();
     private static final CadastroSala cadastroSala = CadastroSala.getInstancia();
 
-    public static void goToMenu() {
-        while(true) {
+    public static void goToMenu(TipoUsuario tipo) {
+        while (true) {
             System.out.println("\nBem vindo ao Menu de Espacos Fisicos\nEscolha um opção: ");
             System.out.println("1 - Cadastrar Espaco Fisico");
             System.out.println("2 - Mostrar Espacos Fisicos");
@@ -65,7 +63,8 @@ public class MenuEspacoFisico{
         System.out.println("Espaço removido com sucesso!");
     }
 
-    public static Reserva infoReserva(){
+
+    public static Reserva infoReserva(TipoUsuario tipo) {
         System.out.println("Informe a data de inicio da sua reserva: ");
         int dtInicio = sc.nextInt();
         System.out.println("Informe a data de fim da sua reserva: ");
@@ -74,14 +73,18 @@ public class MenuEspacoFisico{
         int horInicio = sc.nextInt();
         System.out.println("Informe a hora de fim da sua reserva: ");
         int horFim = sc.nextInt();
-        Reserva reserva = new Reserva(dtInicio, dtFim, horInicio, horFim);
-        return reserva;
+        if(TipoUsuario.ALUNO.equals(tipo) && dtFim - dtInicio >= 1){
+                System.out.println("Erro ao fazer a reserva! Aluno não está permitido reservar mais de um dia!");
+                infoReserva(tipo);
+                return new Reserva(null,null,null,null);
+        }
+        return new Reserva(dtInicio, dtFim, horInicio, horFim);
     }
 
-    private static void listarEspacos() {
+    private static void listarEspacos(TipoUsuario tipo) {
         int tipoEspaco = escolhaEspaco();
         if(tipoEspaco == -1){
-            goToMenu();
+            goToMenu(tipo);
             return;
         }
 
@@ -92,17 +95,17 @@ public class MenuEspacoFisico{
         }
     }
 
-    private static void iniciarReserva(){
+    private static void iniciarReserva(TipoUsuario tipo) {
         int op = escolhaEspaco();
         if(op == -1){
-            goToMenu();
+            goToMenu(tipo);
             return;
         }
 
         switch (op) {
-            case 1 -> cadastroSala.reservarEspaco(infoReserva());
-            case 2 -> cadastroLaboratorio.reservarEspaco(infoReserva());
-            case 3 -> cadastroAuditorio.reservarEspaco(infoReserva());
+            case 1 -> cadastroSala.reservarEspaco(infoReserva(tipo));
+            case 2 -> cadastroLaboratorio.reservarEspaco(infoReserva(tipo));
+            case 3 -> cadastroAuditorio.reservarEspaco(infoReserva(tipo));
             default -> System.out.println("Erro ao cadastrar Espaco! Esse espaço fisico não existe");
         }
     }
@@ -121,10 +124,10 @@ public class MenuEspacoFisico{
         return tipoEspaco;
     }
 
-    private static void criarEspacoFisico() {
+    private static void criarEspacoFisico(TipoUsuario tipo) {
         int tipoDeEspaco = escolhaEspaco();
         if(tipoDeEspaco == -1){
-            goToMenu();
+            goToMenu(tipo);
             return;
         }
 
@@ -156,10 +159,10 @@ public class MenuEspacoFisico{
         }
     }
 
-    private static void mostrarHistoricoReservas() {
+    private static void mostrarHistoricoReservas(TipoUsuario tipo) {
         int tipoDeEspaco = escolhaEspaco();
         if(tipoDeEspaco == -1){
-            goToMenu();
+            goToMenu(tipo);
             return;
         }
 
@@ -171,10 +174,10 @@ public class MenuEspacoFisico{
         }
     }
 
-    private static void cadastrarEquipamento() {
+    private static void cadastrarEquipamento(TipoUsuario tipo) {
         int tipoDeEspaco = escolhaEspaco();
         if(tipoDeEspaco == -1){
-            goToMenu();
+            goToMenu(tipo);
             return;
         }
 
