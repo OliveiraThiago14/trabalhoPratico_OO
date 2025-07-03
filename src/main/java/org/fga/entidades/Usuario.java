@@ -11,6 +11,8 @@ import org.fga.util.Common;
 @ToString(callSuper = true)
 @AllArgsConstructor
 public class Usuario extends Common {
+    public Usuario() {
+    }
     private String nome;
     private String email;
     private String telefone;
