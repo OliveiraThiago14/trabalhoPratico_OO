@@ -23,13 +23,6 @@ public class CadastroEspacoFisico<T extends EspacoFisico> extends Cadastro<T> {
         return null;
     }
 
-    public void listarEspacos() {
-        System.out.println("\nEspacos cadastrados:");
-        for (Pair<T, OffsetDateTime> par : db) {
-            System.out.println(par.getFirst().toString());
-        }
-    }
-
     public void cadastrarEquipamento(String nome, Integer quantidade) {
         for (Pair<String, Integer> equipamento : equipamentos) {
             if (equipamento.getFirst().equals(nome)) {

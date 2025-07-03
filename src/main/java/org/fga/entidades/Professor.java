@@ -15,4 +15,17 @@ public class Professor extends Servidor {
         super(nome, email, telefone, senha, matricula, cargo);
         this.curso = curso;
     }
+
+    @Override
+    public String toString() {
+        return "Professor{" +
+                "nome='" + getNome() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", telefone='" + getTelefone() + '\'' +
+                ", senha='" + getSenha() + '\'' +
+                ", matricula='" + getMatricula() + '\'' +
+                ", cargo='" + getCargo() + '\'' +
+                ", curso='" + curso + '\'' +
+                '}';
+    }
 }

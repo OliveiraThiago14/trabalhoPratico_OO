@@ -40,4 +40,20 @@ public class Cadastro<T extends Common> {
         }
         return false;
     }
+
+    public void delete(Integer id) {
+        for (Pair<T, OffsetDateTime> found : db) {
+            if (found.getFirst().getId() == id) {
+                db.remove(found);
+                return;
+            }
+        }
+    }
+
+    public void listar(String tipo){
+        System.out.println("\n" + tipo + "s cadastrados:");
+        for (Pair<T, OffsetDateTime> par : db){
+            System.out.println(tipo + ": " + par.getFirst().toString());
+        }
+    }
 }

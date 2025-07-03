@@ -1,6 +1,7 @@
 package org.fga.painel;
 
 import org.fga.cadastros.CadastroAuditorio;
+import org.fga.cadastros.CadastroEspacoFisico;
 import org.fga.cadastros.CadastroLaboratorio;
 import org.fga.cadastros.CadastroSala;
 import org.fga.entidades.Aluno;
@@ -26,7 +27,8 @@ public class MenuEspacoFisico{
             System.out.println("3 - Fazer Reserva de Espaco Fisicos");
             System.out.println("4 - Exibir Historico de Reservas Feitas");
             System.out.println("5 - Cadastrar Equipamento");
-            System.out.println("6 - Sair do Menu");
+            System.out.println("6 - Remover Espaco Fisico");
+            System.out.println("7 - Sair do Menu");
 
             int escolha = sc.nextInt();
             switch (escolha) {
@@ -35,12 +37,32 @@ public class MenuEspacoFisico{
                 case 3 -> iniciarReserva();
                 case 4 -> mostrarHistoricoReservas();
                 case 5 -> cadastrarEquipamento();
-                case 6 -> {
+                case 6 -> removerEspacoFisico();
+                case 7 -> {
                     return;
                 }
                 default -> System.out.println("Escolha uma opção valida!");
             }
         }
+    }
+
+    private static void removerEspacoFisico() {
+        int op = escolhaEspaco();
+        if(op == -1){
+            goToMenu();
+            return;
+        }
+
+        System.out.println("Informe o nome do espaço fisico que deseja remover: ");
+        sc.nextLine();
+        String nomeEspaco = sc.nextLine();
+        switch (op) {
+            case 1 -> cadastroSala.delete(cadastroSala.getIdByNome(nomeEspaco));
+            case 2 -> cadastroLaboratorio.delete(cadastroLaboratorio.getIdByNome(nomeEspaco));
+            case 3 -> cadastroAuditorio.delete(cadastroAuditorio.getIdByNome(nomeEspaco));
+            default -> System.out.println("Erro ao Remover Espaco! Esse espaço fisico não existe");
+        }
+        System.out.println("Espaço removido com sucesso!");
     }
 
     public static Reserva infoReserva(){
@@ -64,9 +86,9 @@ public class MenuEspacoFisico{
         }
 
         switch (tipoEspaco){
-            case 1 -> cadastroSala.listarEspacos();
-            case 2 -> cadastroLaboratorio.listarEspacos();
-            case 3 -> cadastroAuditorio.listarEspacos();
+            case 1 -> cadastroSala.listar("Sala");
+            case 2 -> cadastroLaboratorio.listar("Laboratorio");
+            case 3 -> cadastroAuditorio.listar("Auditorio");
         }
     }
 
