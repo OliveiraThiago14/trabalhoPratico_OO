@@ -15,4 +15,9 @@ public class ServidorAdm extends Servidor{
         super(nome, email, telefone, senha, matricula, cargo);
         this.departamento = departamento;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
