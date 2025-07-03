@@ -10,8 +10,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class Cadastro<T extends Common> {
-    @Getter
     protected Integer num = 0;
     protected List<Pair<T, OffsetDateTime>> db = new ArrayList<>();
 

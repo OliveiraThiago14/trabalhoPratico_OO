@@ -9,6 +9,9 @@ public class CadastroServidor extends CadastroUsuario<ServidorAdm>{
         if(instancia != null){
             return instancia;
         }
-        return instancia = new CadastroServidor();
+        instancia = new CadastroServidor();
+        ServidorAdm primeiroServidor = new ServidorAdm("thiago", "gustavo@gmail.com", "guilherme", "pedro", "adm", "tudo", "tudo");
+        instancia.cadastrar(primeiroServidor);
+        return instancia;
     }
 }

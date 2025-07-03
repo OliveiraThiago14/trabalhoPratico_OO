@@ -8,14 +8,18 @@ public abstract class MenuInicial {
         Scanner sc = new Scanner(System.in);
 
         //Identificar cargo do usuário
-        System.out.println("Qual o seu cargo na Universidade?\n1 - Professor\n2 - Aluno\n3 - Servidor");
+        while (true) {
+            System.out.println("Qual o seu cargo na Universidade?\n1 - Professor\n2 - Aluno\n3 - Servidor\n4 - Sair");
 
-        int cargo = sc.nextInt();
+            int cargo = sc.nextInt();
 
-        switch (cargo){
-            case 1 -> MenuServidores.goToMenuServidores();
-            case 2 -> MenuAluno.goToMenuAluno();
-            case 3 -> MenuServidor.goToMenuServidor();
+            switch (cargo) {
+                case 1 -> MenuProfessor.goToMenu();
+                case 2 -> MenuAluno.goToMenuAluno();
+                case 4 -> {
+                    return;
+                }
+            }
         }
     }
 }

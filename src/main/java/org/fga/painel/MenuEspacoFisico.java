@@ -3,7 +3,9 @@ package org.fga.painel;
 import org.fga.cadastros.CadastroAuditorio;
 import org.fga.cadastros.CadastroLaboratorio;
 import org.fga.cadastros.CadastroSala;
+import org.fga.entidades.Aluno;
 import org.fga.entidades.Reserva;
+import org.fga.entidades.Usuario;
 import org.fga.espacos.Auditorio;
 import org.fga.espacos.Laboratorio;
 import org.fga.espacos.Sala;
@@ -11,38 +13,34 @@ import org.fga.espacos.Sala;
 import java.util.Scanner;
 
 public class MenuEspacoFisico{
-    static Scanner sc = new Scanner(System.in);
-    static CadastroAuditorio cadastroAuditorio = CadastroAuditorio.getInstancia();
-    static CadastroLaboratorio cadastroLaboratorio = CadastroLaboratorio.getInstancia();
-    static CadastroSala cadastroSala = CadastroSala.getInstancia();
+    private static final Scanner sc = new Scanner(System.in);
+    private static final CadastroAuditorio cadastroAuditorio = CadastroAuditorio.getInstancia();
+    private static final CadastroLaboratorio cadastroLaboratorio = CadastroLaboratorio.getInstancia();
+    private static final CadastroSala cadastroSala = CadastroSala.getInstancia();
 
     public static void goToMenu() {
+        while(true) {
+            System.out.println("\nBem vindo ao Menu de Espacos Fisicos\nEscolha um opção: ");
+            System.out.println("1 - Cadastrar Espaco Fisico");
+            System.out.println("2 - Mostrar Espacos Fisicos");
+            System.out.println("3 - Fazer Reserva de Espaco Fisicos");
+            System.out.println("4 - Exibir Historico de Reservas Feitas");
+            System.out.println("5 - Cadastrar Equipamento");
+            System.out.println("6 - Sair do Menu");
 
-        System.out.println("\nBem vindo ao Menu de Espacos Fisicos\nEscolha um opção: ");
-        System.out.println("1 - Cadastrar Espaco Fisico");
-        System.out.println("2 - Mostrar Espacos Fisicos");
-        System.out.println("3 - Fazer Reserva de Espaco Fisicos");
-        System.out.println("4 - Exibir Historico de Reservas Feitas");
-        System.out.println("5 - Cadastrar Equipamento");
-        System.out.println("6 - Sair do Menu");
-
-        int escolha = sc.nextInt();
-        switch (escolha) {
-            case 1 -> criarEspacoFisico();
-            case 2 -> listarEspacos();
-            case 3 -> iniciarReserva();
-            case 4 -> mostrarHistoricoReservas();
-            case 5 -> cadastrarEquipamento();
-            case 6 -> {
-                MenuAluno.goToMenuAluno();
-                return;
-            }
-            default -> {
-                System.out.println("Escolha uma opção valida!");
-                goToMenu();
+            int escolha = sc.nextInt();
+            switch (escolha) {
+                case 1 -> criarEspacoFisico();
+                case 2 -> listarEspacos();
+                case 3 -> iniciarReserva();
+                case 4 -> mostrarHistoricoReservas();
+                case 5 -> cadastrarEquipamento();
+                case 6 -> {
+                    return;
+                }
+                default -> System.out.println("Escolha uma opção valida!");
             }
         }
-        goToMenu();
     }
 
     public static Reserva infoReserva(){
