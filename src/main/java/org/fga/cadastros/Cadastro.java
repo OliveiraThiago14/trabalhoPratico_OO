@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.fga.entidades.Usuario;
 import org.fga.util.Common;
 import org.fga.util.Pair;
+import org.fga.util.TipoUsuario;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;

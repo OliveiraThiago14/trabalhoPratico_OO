@@ -1,11 +1,9 @@
 package org.fga.painel;
 
 import org.fga.cadastros.CadastroAluno;
-import org.fga.entidades.Aluno;
 import org.fga.exceptions.EmailSenhaIncorretaException;
 import org.fga.util.TipoUsuario;
 
-import java.awt.*;
 import java.util.Scanner;
 
 public class MenuAluno {
@@ -36,9 +34,13 @@ public class MenuAluno {
             switch (escolha) {
                 case 1 -> cadastroAluno.listar("Aluno");
                 case 2 -> MenuEspacoFisico.goToMenu(TipoUsuario.ALUNO);
-                case 3 -> MenuInicial.menuInicial();
+                case 3 -> {
+                    return;
+                }
                 default -> goToMenu();
             }
         }
     }
 }
+//atualizar - precisa de ID, método de receber dados recebe tipo de usuario
+

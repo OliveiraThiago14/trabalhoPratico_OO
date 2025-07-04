@@ -5,7 +5,6 @@ import org.fga.cadastros.CadastroProfessor;
 import org.fga.cadastros.CadastroServidor;
 import org.fga.entidades.Aluno;
 import org.fga.entidades.Professor;
-import org.fga.entidades.Servidor;
 import org.fga.entidades.ServidorAdm;
 import org.fga.exceptions.EmailSenhaIncorretaException;
 import org.fga.util.TipoUsuario;
@@ -18,7 +17,7 @@ public class MenuServidor {
     private static final CadastroAluno cadastroAluno = CadastroAluno.getInstancia();
     private static final CadastroProfessor cadastroProfessor = CadastroProfessor.getInstancia();
 
-    public static void goToMenuServidor(){
+    public static void goToMenu(){
         System.out.println("Informe o seu email:");
         String email = sc.nextLine();
         System.out.println("Informe a sua senha:");
@@ -51,7 +50,7 @@ public class MenuServidor {
                 case 6 -> cadastroProfessor.listar("Professor");
                 case 7 -> MenuEspacoFisico.goToMenu(TipoUsuario.SERVIDOR);
                 case 8 -> MenuInicial.menuInicial();
-                default -> goToMenuServidor();
+                default -> goToMenu();
             }
         }
     }
@@ -75,7 +74,7 @@ public class MenuServidor {
         System.out.println("Qual o email? ");
         String email = sc.nextLine();
         //telefone
-        System.out.println("Qual o telfone? ");
+        System.out.println("Qual o telefone? ");
         String telefone = sc.nextLine();
         //senha
         System.out.println("Qual a senha? ");
@@ -98,10 +97,10 @@ public class MenuServidor {
                 System.out.println("Aluno cadastrado com sucesso!");
             }
             case SERVIDOR -> {
-                System.out.println("Qual o departamento? ");
-                String departamento = sc.nextLine();
                 System.out.println("Qual o cargo? ");
                 String cargo = sc.nextLine();
+                System.out.println("Qual o departamento? ");
+                String departamento = sc.nextLine();
 
                 ServidorAdm servidor = new ServidorAdm(nome, email, telefone, senha, matricula, cargo, departamento);
                 cadastroServidor.cadastrar(servidor);
