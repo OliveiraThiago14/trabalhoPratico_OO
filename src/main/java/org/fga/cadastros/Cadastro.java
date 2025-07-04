@@ -5,6 +5,7 @@ import org.fga.entidades.Usuario;
 import org.fga.util.Common;
 import org.fga.util.Pair;
 import org.fga.util.TipoUsuario;
+import org.fga.util.TipoEspacoFisico;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
@@ -51,8 +52,15 @@ public class Cadastro<T extends Common> {
         }
     }
 
-    public void listar(String tipo){
-        System.out.println("\n" + tipo + "s cadastrados:");
+    public void listar(TipoUsuario tipo){
+        System.out.println("\n" + tipo.getTipo() + " cadastrados:");
+        for (Pair<T, OffsetDateTime> par : db){
+            System.out.println(par.getFirst().toString());
+        }
+    }
+
+    public void listar(TipoEspacoFisico tipo){
+        System.out.println("\n" + tipo.getTipo() + " cadastrados:");
         for (Pair<T, OffsetDateTime> par : db){
             System.out.println(par.getFirst().toString());
         }

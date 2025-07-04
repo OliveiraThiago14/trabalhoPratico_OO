@@ -1,7 +1,9 @@
 package org.fga.util;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public enum TipoUsuario {
     ALUNO("Aluno"),
@@ -9,8 +11,4 @@ public enum TipoUsuario {
     SERVIDOR("Servidor");
 
     private String tipo;
-
-    TipoUsuario(String tipo) {
-        this.tipo = tipo;
-    }
 }

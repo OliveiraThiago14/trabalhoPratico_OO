@@ -18,6 +18,14 @@ public class ServidorAdm extends Servidor{
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Servidor: " +
+                "nome=" + getNome() +
+                ", email=" + getEmail() +
+                ", telefone=" + getTelefone() +
+                ", senha=" + getSenha() +
+                ", matricula=" + getMatricula() +
+                ", cargo=" + getCargo() +
+                ", curso=" + departamento + "\n";
+
     }
 }
