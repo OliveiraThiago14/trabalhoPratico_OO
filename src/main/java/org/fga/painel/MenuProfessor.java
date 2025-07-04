@@ -35,7 +35,7 @@ public class MenuProfessor {
 
             switch (escolha) {
                 case 1 -> MenuEspacoFisico.goToMenu(TipoUsuario.PROFESSOR);
-                case 2 -> cadastroAluno.listarAluno();
+                case 2 -> cadastroAluno.listar(TipoUsuario.ALUNO);
                 case 3 -> {
                     return;
                 }

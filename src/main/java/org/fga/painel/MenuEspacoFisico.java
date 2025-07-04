@@ -10,6 +10,7 @@ import org.fga.espacos.EspacoFisico;
 import org.fga.espacos.Laboratorio;
 import org.fga.espacos.Sala;
 import org.fga.exceptions.DiasExcedidosException;
+import org.fga.util.TipoEspacoFisico;
 import org.fga.util.TipoUsuario;
 
 import java.util.Scanner;
@@ -94,9 +95,9 @@ public class MenuEspacoFisico {
             return;
         }
         switch (tipoEspaco) {
-            case 1 -> cadastroSala.listar("Sala");
-            case 2 -> cadastroLaboratorio.listar("Laboratorio");
-            case 3 -> cadastroAuditorio.listar("Auditorio");
+            case 1 -> cadastroSala.listar(TipoEspacoFisico.SALA);
+            case 2 -> cadastroLaboratorio.listar(TipoEspacoFisico.LABORATORIO);
+            case 3 -> cadastroAuditorio.listar(TipoEspacoFisico.AUDITORIO);
         }
     }
 

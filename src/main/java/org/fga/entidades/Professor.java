@@ -22,14 +22,13 @@ public class Professor extends Servidor {
     }
     @Override
     public String toString() {
-        return "Professor{" +
-                "nome='" + getNome() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", telefone='" + getTelefone() + '\'' +
-                ", senha='" + getSenha() + '\'' +
-                ", matricula='" + getMatricula() + '\'' +
-                ", cargo='" + getCargo() + '\'' +
-                ", curso='" + curso + '\'' +
-                '}';
+        return "Professor: " +
+                "nome=" + getNome() +
+                ", email=" + getEmail() +
+                ", telefone=" + getTelefone() +
+                ", senha=" + getSenha() +
+                ", matricula=" + getMatricula() +
+                ", cargo=" + getCargo() +
+                ", curso=" + curso + "\n";
     }
 }
