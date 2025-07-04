@@ -33,6 +33,10 @@ public class Cadastro<T extends Common> {
     }
 
     public boolean atualizar(Integer id, T usuario) {
+        if(id == null){
+            System.out.println("Matricula Incorreta.");
+            return false;
+        }
         for(Pair<T, OffsetDateTime> found : db) {
             if (found.getFirst().getId() == id) {
                 found.setFirst(usuario);

@@ -9,14 +9,14 @@ public abstract class MenuInicial {
 
         //Identificar cargo do usuário
         while (true) {
-            System.out.println("Qual o seu cargo na Universidade?\n1 - Professor\n2 - Aluno\n3 - Servidor\n4 - Sair");
+            System.out.println("Qual o seu cargo na Universidade?\n1 - Aluno\n2 - Servidor\n3 - Professor\n4 - Sair");
 
             int cargo = sc.nextInt();
 
             switch (cargo) {
-                case 1 -> MenuProfessor.goToMenu();
-                case 2 -> MenuAluno.goToMenu();
-                case 3 -> MenuServidor.goToMenu();
+                case 1 -> MenuAluno.goToMenu();
+                case 2 -> MenuServidor.goToMenu();
+                case 3 -> MenuProfessor.goToMenu();
                 case 4 -> {
                     return;
                 }

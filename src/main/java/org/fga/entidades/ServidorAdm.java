@@ -20,9 +20,7 @@ public class ServidorAdm extends Servidor{
     public String toString() {
         return "Servidor: " +
                 "nome=" + getNome() +
-                ", email=" + getEmail() +
                 ", telefone=" + getTelefone() +
-                ", senha=" + getSenha() +
                 ", matricula=" + getMatricula() +
                 ", cargo=" + getCargo() +
                 ", curso=" + departamento + "\n";

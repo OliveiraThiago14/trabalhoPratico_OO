@@ -29,7 +29,6 @@ public class Aluno extends Usuario{
     public String toString() {
         return "Aluno: " +
                 "nome=" + getNome() +
-                ", email=" + getEmail() +
                 ", telefone=" + getTelefone() +
                 ", matricula=" + getMatricula() +
                 ", curso=" + curso +
