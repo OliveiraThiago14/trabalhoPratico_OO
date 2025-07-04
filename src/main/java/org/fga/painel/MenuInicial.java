@@ -15,7 +15,8 @@ public abstract class MenuInicial {
 
             switch (cargo) {
                 case 1 -> MenuProfessor.goToMenu();
-                case 2 -> MenuAluno.goToMenuAluno();
+                case 2 -> MenuAluno.goToMenu();
+                case 3 -> MenuServidor.goToMenu();
                 case 4 -> {
                     return;
                 }

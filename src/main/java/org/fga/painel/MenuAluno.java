@@ -34,7 +34,7 @@ public class MenuAluno {
             int escolha = sc.nextInt();
 
             switch (escolha) {
-                case 1 -> cadastroAluno.listar("Aluno");
+                case 1 -> cadastroAluno.listar(TipoUsuario.ALUNO);
                 case 2 -> MenuEspacoFisico.goToMenu(TipoUsuario.ALUNO);
                 case 3 -> MenuInicial.menuInicial();
                 default -> goToMenu();

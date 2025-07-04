@@ -12,6 +12,5 @@ public class TestesAluno {
     public static void main(String[] args) {
         MenuEspacoFisico menuEspaco = new MenuEspacoFisico();
         menuEspaco.goToMenu(TipoUsuario.ALUNO);
-
     }
 }

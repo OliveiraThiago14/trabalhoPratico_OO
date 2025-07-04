@@ -26,13 +26,13 @@ public class Aluno extends Usuario{
     }
 
     @Override
-   public String toString() {
-       return "Aluno: " +
-               "nome=" + getNome() + "\n"+
-               ", email=" + getEmail() + "\n" +
-               ", telefone=" + getTelefone() + "\n" +
-               ", matricula=" + getMatricula() + "\n" +
-               ", curso=" + curso + "\n" +
-               ", semestre=" + semestre + "\n";
+    public String toString() {
+        return "Aluno: " +
+                "nome=" + getNome() +
+                ", email=" + getEmail() +
+                ", telefone=" + getTelefone() +
+                ", matricula=" + getMatricula() +
+                ", curso=" + curso +
+                ", semestre=" + semestre + "\n";
    }
 }
