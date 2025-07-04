@@ -10,6 +10,8 @@ import org.fga.espacos.EspacoFisico;
 import org.fga.espacos.Laboratorio;
 import org.fga.espacos.Sala;
 import org.fga.exceptions.DiasExcedidosException;
+import org.fga.exceptions.HorarioNaoPermitidoAluno;
+import org.fga.util.Pair;
 import org.fga.util.TipoEspacoFisico;
 import org.fga.util.TipoUsuario;
 
@@ -29,8 +31,9 @@ public class MenuEspacoFisico {
             System.out.println("3 - Fazer Reserva de Espaco Fisicos");
             System.out.println("4 - Exibir Historico de Reservas Feitas");
             System.out.println("5 - Cadastrar Equipamento");
-            System.out.println("6 - Remover Espaco Fisico");
-            System.out.println("7 - Sair do Menu");
+            System.out.println("6 - Listar Equipamentos");
+            System.out.println("7 - Remover Espaco Fisico");
+            System.out.println("8 - Sair do Menu");
 
             int escolha = sc.nextInt();
             switch (escolha) {
@@ -39,8 +42,9 @@ public class MenuEspacoFisico {
                 case 3 -> iniciarReserva(tipo);
                 case 4 -> mostrarHistoricoReservas(tipo);
                 case 5 -> cadastrarEquipamento(tipo);
-                case 6 -> removerEspacoFisico(tipo);
-                case 7 -> {
+                case 6 -> listarEquipamentos(tipo);
+                case 7 -> removerEspacoFisico(tipo);
+                case 8 -> {
                     return;
                 }
                 default -> System.out.println("Escolha uma opção valida!");
@@ -72,7 +76,7 @@ public class MenuEspacoFisico {
     }
 
 
-    public static Reserva infoReserva(TipoUsuario tipo) throws DiasExcedidosException {
+    public static Reserva infoReserva(TipoUsuario tipo) throws DiasExcedidosException, HorarioNaoPermitidoAluno {
         System.out.println("Informe a data de inicio da sua reserva: ");
         int dtInicio = sc.nextInt();
         System.out.println("Informe a data de fim da sua reserva: ");
@@ -83,7 +87,8 @@ public class MenuEspacoFisico {
         int horFim = sc.nextInt();
         if (TipoUsuario.ALUNO.equals(tipo) && dtFim - dtInicio >= 1) {
             throw new DiasExcedidosException();
-
+        }else if(TipoUsuario.ALUNO.equals(tipo) && horInicio >= 18 && horFim <= 8) {
+            throw new HorarioNaoPermitidoAluno();
         }
         return new Reserva(dtInicio, dtFim, horInicio, horFim);
     }
@@ -100,6 +105,19 @@ public class MenuEspacoFisico {
             case 3 -> cadastroAuditorio.listar(TipoEspacoFisico.AUDITORIO);
         }
     }
+    private static void listarEquipamentos(TipoUsuario tipo) {
+        int tipoEspaco = escolhaEspaco();
+        if (tipoEspaco == -1) {
+            goToMenu(tipo);
+            return;
+        }
+        switch (tipoEspaco) {
+            case 1 -> cadastroSala.listarEquipamento(TipoEspacoFisico.SALA);
+            case 2 -> cadastroLaboratorio.listarEquipamento(TipoEspacoFisico.LABORATORIO);
+            case 3 -> cadastroAuditorio.listarEquipamento(TipoEspacoFisico.AUDITORIO);
+        }
+    }
+
 
     private static void iniciarReserva(TipoUsuario tipo) {
         int op = escolhaEspaco();
@@ -123,7 +141,7 @@ public class MenuEspacoFisico {
         try {
             reserva = infoReserva(tipo);
             cadastro.reservarEspaco(reserva);
-        } catch (DiasExcedidosException e) {
+        } catch (DiasExcedidosException  | HorarioNaoPermitidoAluno e) {
             System.out.println(e.getMessage());
             iniciarReserva(tipo);
         }
@@ -144,6 +162,11 @@ public class MenuEspacoFisico {
     }
 
     private static void criarEspacoFisico(TipoUsuario tipo) {
+
+        if(TipoUsuario.ALUNO.equals(tipo)){
+            System.out.println("Usuario não tem permissão para fazer o acesso");
+            goToMenu(tipo);
+        }
         int tipoDeEspaco = escolhaEspaco();
         if (tipoDeEspaco == -1) {
             goToMenu(tipo);

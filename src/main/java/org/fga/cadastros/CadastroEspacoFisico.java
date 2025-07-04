@@ -1,18 +1,24 @@
 package org.fga.cadastros;
 
+import lombok.Getter;
 import org.fga.entidades.Reserva;
 import org.fga.espacos.EspacoFisico;
 import org.fga.util.Pair;
+import org.fga.util.TipoEspacoFisico;
 import org.fga.util.TipoReserva;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Getter
 public class CadastroEspacoFisico extends Cadastro<EspacoFisico> {
     List<Pair<String, Integer>> equipamentos = new ArrayList<>();
     private List<Pair<String, Reserva>> historicoDeReservasFeitas = new ArrayList<>();
     private List<Reserva> reservasDoEspaco = new ArrayList<>();
+
+    public static CadastroEspacoFisico getInstancia() {
+        return CadastroEspacoFisico.getInstancia();
+    }
 
     public Integer getIdByNome(String nome) {
         for (Pair<EspacoFisico, OffsetDateTime> found : db) {
@@ -31,6 +37,11 @@ public class CadastroEspacoFisico extends Cadastro<EspacoFisico> {
             }
         }
         equipamentos.add(new Pair<>(nome, quantidade));
+    }
+    public void listarEquipamento(TipoEspacoFisico tipo) {
+        for (Pair<String, Integer> equipamento : equipamentos) {
+            System.out.println("Equipamento: " + equipamento.getFirst() + " Quantidade: " + equipamento.getSecond());
+        }
     }
 
     public boolean reservarEspaco(Reserva novaReserva) {
