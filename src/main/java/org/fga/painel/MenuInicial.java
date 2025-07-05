@@ -12,6 +12,7 @@ public abstract class MenuInicial {
             System.out.println("Qual o seu cargo na Universidade?\n1 - Aluno\n2 - Servidor\n3 - Professor\n4 - Sair");
 
             int cargo = sc.nextInt();
+            sc.nextLine();
 
             switch (cargo) {
                 case 1 -> MenuAluno.goToMenu();

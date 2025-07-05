@@ -84,7 +84,7 @@ public class MenuServidor {
             goToMenu();
             return;
         }
-        System.out.println("Informe a Matrícula do Usuário que Terão os Dados Atualizados:");
+        System.out.println("Informe a matrícula do usuário que terá os dados atualizados:");
         String matricula = sc.nextLine();
 
         //nome

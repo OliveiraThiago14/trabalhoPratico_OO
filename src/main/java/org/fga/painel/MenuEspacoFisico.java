@@ -10,8 +10,7 @@ import org.fga.espacos.EspacoFisico;
 import org.fga.espacos.Laboratorio;
 import org.fga.espacos.Sala;
 import org.fga.exceptions.DiasExcedidosException;
-import org.fga.exceptions.HorarioNaoPermitidoAluno;
-import org.fga.util.Pair;
+import org.fga.exceptions.HorarioIndisponivelException;
 import org.fga.util.TipoEspacoFisico;
 import org.fga.util.TipoUsuario;
 
@@ -28,23 +27,25 @@ public class MenuEspacoFisico {
             System.out.println("\nBem vindo ao Menu de Espacos Fisicos\nEscolha um opção: ");
             System.out.println("1 - Cadastrar Espaco Fisico");
             System.out.println("2 - Mostrar Espacos Fisicos");
-            System.out.println("3 - Fazer Reserva de Espaco Fisicos");
-            System.out.println("4 - Exibir Historico de Reservas Feitas");
-            System.out.println("5 - Cadastrar Equipamento");
-            System.out.println("6 - Listar Equipamentos");
-            System.out.println("7 - Remover Espaco Fisico");
-            System.out.println("8 - Sair do Menu");
+            System.out.println("3 - Fazer Reserva de Espaco Fisico");
+            System.out.println("4 - Cancelar Reserva de Espaco Fisico");
+            System.out.println("5 - Exibir Historico de Reservas Feitas");
+            System.out.println("6 - Cadastrar Equipamento");
+            System.out.println("7 - Listar Equipamentos");
+            System.out.println("8 - Remover Espaco Fisico");
+            System.out.println("9 - Sair do Menu");
 
             int escolha = sc.nextInt();
             switch (escolha) {
                 case 1 -> criarEspacoFisico(tipo);
                 case 2 -> listarEspacos(tipo);
                 case 3 -> iniciarReserva(tipo);
-                case 4 -> mostrarHistoricoReservas(tipo);
-                case 5 -> cadastrarEquipamento(tipo);
-                case 6 -> listarEquipamentos(tipo);
-                case 7 -> removerEspacoFisico(tipo);
-                case 8 -> {
+                case 4 -> cancelarReserva(tipo);
+                case 5 -> mostrarHistoricoReservas(tipo);
+                case 6 -> cadastrarEquipamento(tipo);
+                case 7 -> listarEquipamentos(tipo);
+                case 8 -> removerEspacoFisico(tipo);
+                case 9 -> {
                     return;
                 }
                 default -> System.out.println("Escolha uma opção valida!");
@@ -53,30 +54,27 @@ public class MenuEspacoFisico {
     }
 
     private static void removerEspacoFisico(TipoUsuario tipo) {
-        int op = escolhaEspaco();
-        if (op == -1) {
-            goToMenu(tipo);
+        if(!tipo.equals(TipoUsuario.SERVIDOR)){
+            System.out.println("Usuario não tem permissão para fazer o acesso");
             return;
         }
-        System.out.println("Informe o nome do espaço fisico que deseja remover: ");
-        sc.nextLine();
-        String nomeEspaco = sc.nextLine();
+        int op = escolhaEspaco();
+        if (op == -1) {
+            return;
+        }
 
         CadastroEspacoFisico cadastroEspacoFisico = cadastroFactory(op);
         if(cadastroEspacoFisico == null) return;
 
-        Integer idEspaco = cadastroEspacoFisico.getIdByNome(nomeEspaco);
+        int idEspaco = pedeNome(cadastroEspacoFisico);
+        if(idEspaco == -1) return;
 
-        if(idEspaco == null) {
-            System.out.println("Erro ao Remover Espaco! Esse espaço fisico não existe");
-            return;
-        }
         cadastroEspacoFisico.delete(idEspaco);
         System.out.println("Espaço removido com sucesso!");
     }
 
 
-    public static Reserva infoReserva(TipoUsuario tipo) throws DiasExcedidosException, HorarioNaoPermitidoAluno {
+    public static Reserva infoReserva(TipoUsuario tipo) throws DiasExcedidosException, HorarioIndisponivelException {
         System.out.println("Informe a data de inicio da sua reserva: ");
         int dtInicio = sc.nextInt();
         System.out.println("Informe a data de fim da sua reserva: ");
@@ -87,16 +85,28 @@ public class MenuEspacoFisico {
         int horFim = sc.nextInt();
         if (TipoUsuario.ALUNO.equals(tipo) && dtFim - dtInicio >= 1) {
             throw new DiasExcedidosException();
-        }else if(TipoUsuario.ALUNO.equals(tipo) && horInicio >= 18 && horFim <= 8) {
-            throw new HorarioNaoPermitidoAluno();
+        }
+        if(horInicio < 6 || horFim > 22 || horInicio > 22 || horFim < 6) {
+            throw new HorarioIndisponivelException();
         }
         return new Reserva(dtInicio, dtFim, horInicio, horFim);
+    }
+
+    private static int pedeNome(CadastroEspacoFisico cadastroEspacoFisico){
+        System.out.println("Informe o nome do espaço fisico: ");
+        sc.nextLine();
+        String nomeEspaco = sc.nextLine();
+        Integer idEspaco = cadastroEspacoFisico.getIdByNome(nomeEspaco);
+        if(idEspaco == null) {
+            System.out.println("Erro! Esse espaço fisico não existe");
+            return -1;
+        }
+        return idEspaco;
     }
 
     private static void listarEspacos(TipoUsuario tipo) {
         int tipoEspaco = escolhaEspaco();
         if (tipoEspaco == -1) {
-            goToMenu(tipo);
             return;
         }
         switch (tipoEspaco) {
@@ -105,43 +115,62 @@ public class MenuEspacoFisico {
             case 3 -> cadastroAuditorio.listar(TipoEspacoFisico.AUDITORIO);
         }
     }
+
     private static void listarEquipamentos(TipoUsuario tipo) {
         int tipoEspaco = escolhaEspaco();
         if (tipoEspaco == -1) {
-            goToMenu(tipo);
             return;
         }
-        switch (tipoEspaco) {
-            case 1 -> cadastroSala.listarEquipamento(TipoEspacoFisico.SALA);
-            case 2 -> cadastroLaboratorio.listarEquipamento(TipoEspacoFisico.LABORATORIO);
-            case 3 -> cadastroAuditorio.listarEquipamento(TipoEspacoFisico.AUDITORIO);
-        }
-    }
+        CadastroEspacoFisico cadastro = cadastroFactory(tipoEspaco);
+        if(cadastro == null) return;
 
+        int idEspaco = pedeNome(cadastro);
+        if(idEspaco == -1) return;
+
+        cadastro.listarEquipamento(idEspaco);
+    }
 
     private static void iniciarReserva(TipoUsuario tipo) {
         int op = escolhaEspaco();
         if (op == -1) {
-            goToMenu(tipo);
             return;
         }
         CadastroEspacoFisico cadastro = cadastroFactory(op);
         if (cadastro == null) return;
-        System.out.println("Informe o nome do espaço fisico que deseja reservar: ");
-        sc.nextLine();
-        String nomeEspaco = sc.nextLine();
 
-        Integer idEspaco = cadastro.getIdByNome(nomeEspaco);
-        if(idEspaco == null){
-            System.out.println("Erro ao Reservar Espaco! Esse espaço fisico não existe");
-            return;
-        }
+        int idEspaco = pedeNome(cadastro);
+        if(idEspaco == -1) return;
 
         Reserva reserva;
         try {
             reserva = infoReserva(tipo);
-            cadastro.reservarEspaco(reserva);
-        } catch (DiasExcedidosException  | HorarioNaoPermitidoAluno e) {
+            cadastro.reservarEspaco(idEspaco, reserva);
+        } catch (DiasExcedidosException  | HorarioIndisponivelException e) {
+            System.out.println(e.getMessage());
+            iniciarReserva(tipo);
+        }
+    }
+
+    private static void cancelarReserva(TipoUsuario tipo) {
+        if(!tipo.equals(TipoUsuario.SERVIDOR)){
+            System.out.println("Usuario não tem permissão para fazer o acesso");
+            return;
+        }
+        int op = escolhaEspaco();
+        if (op == -1) {
+            return;
+        }
+        CadastroEspacoFisico cadastro = cadastroFactory(op);
+        if (cadastro == null) return;
+
+        int idEspaco = pedeNome(cadastro);
+        if(idEspaco == -1) return;
+
+        Reserva reserva;
+        try {
+            reserva = infoReserva(tipo);
+            cadastro.removerReserva(idEspaco, reserva);
+        } catch (DiasExcedidosException | HorarioIndisponivelException e) {
             System.out.println(e.getMessage());
             iniciarReserva(tipo);
         }
@@ -165,11 +194,9 @@ public class MenuEspacoFisico {
 
         if(TipoUsuario.ALUNO.equals(tipo)){
             System.out.println("Usuario não tem permissão para fazer o acesso");
-            goToMenu(tipo);
         }
         int tipoDeEspaco = escolhaEspaco();
         if (tipoDeEspaco == -1) {
-            goToMenu(tipo);
             return;
         }
 
@@ -199,19 +226,21 @@ public class MenuEspacoFisico {
     private static void mostrarHistoricoReservas(TipoUsuario tipo) {
         int tipoDeEspaco = escolhaEspaco();
         if (tipoDeEspaco == -1) {
-            goToMenu(tipo);
             return;
         }
 
         CadastroEspacoFisico cadastro = cadastroFactory(tipoDeEspaco);
         if (cadastro == null) return;
-        cadastro.historicoReservas();
+
+        int idEspaco = pedeNome(cadastro);
+        if(idEspaco == -1) return;
+
+        cadastro.historicoReservas(idEspaco);
     }
 
     private static void cadastrarEquipamento(TipoUsuario tipo) {
         int tipoDeEspaco = escolhaEspaco();
         if (tipoDeEspaco == -1) {
-            goToMenu(tipo);
             return;
         }
 
@@ -221,10 +250,15 @@ public class MenuEspacoFisico {
 
         System.out.println("Informe a quantidade desse equipamento no espaco: ");
         int quantidade = sc.nextInt();
+        sc.nextLine();
 
         CadastroEspacoFisico cadastro = cadastroFactory(tipoDeEspaco);
         if (cadastro == null) return;
-        cadastro.cadastrarEquipamento(nomeEquipamento, quantidade);
+
+        int idEspaco = pedeNome(cadastro);
+        if(idEspaco == -1) return;
+
+        cadastro.cadastrarEquipamento(idEspaco, nomeEquipamento, quantidade);
     }
 
     public static CadastroEspacoFisico cadastroFactory(int op){

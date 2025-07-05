@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 @Getter
 public class CadastroEspacoFisico extends Cadastro<EspacoFisico> {
-    List<Pair<String, Integer>> equipamentos = new ArrayList<>();
-    private List<Pair<String, Reserva>> historicoDeReservasFeitas = new ArrayList<>();
-    private List<Reserva> reservasDoEspaco = new ArrayList<>();
-
     public static CadastroEspacoFisico getInstancia() {
         return CadastroEspacoFisico.getInstancia();
     }
@@ -29,46 +25,54 @@ public class CadastroEspacoFisico extends Cadastro<EspacoFisico> {
         return null;
     }
 
-    public void cadastrarEquipamento(String nome, Integer quantidade) {
+    public void cadastrarEquipamento(Integer idEspaco, String nomeEquipamento, Integer quantidadeEquipamento) {
+        var equipamentos = buscar(idEspaco).getEquipamentos();
         for (Pair<String, Integer> equipamento : equipamentos) {
-            if (equipamento.getFirst().equals(nome)) {
-                System.out.println("Equipamento já cadastrado!");
+            if (equipamento.getFirst().equals(nomeEquipamento)) {
+                equipamento.setSecond(equipamento.getSecond() + quantidadeEquipamento);
                 return;
             }
         }
-        equipamentos.add(new Pair<>(nome, quantidade));
+        equipamentos.add(new Pair<>(nomeEquipamento, quantidadeEquipamento));
     }
-    public void listarEquipamento(TipoEspacoFisico tipo) {
+
+    public void listarEquipamento(int idEspaco) {
+        var equipamentos = buscar(idEspaco).getEquipamentos();
         for (Pair<String, Integer> equipamento : equipamentos) {
-            System.out.println("Equipamento: " + equipamento.getFirst() + " Quantidade: " + equipamento.getSecond());
+            System.out.println(STR."Equipamento: \{equipamento.getFirst()} Quantidade: \{equipamento.getSecond()}");
         }
     }
 
-    public boolean reservarEspaco(Reserva novaReserva) {
-        for (Reserva reservasDoEspaco : reservasDoEspaco) {
-            if (Reserva.sobreposicao(reservasDoEspaco, novaReserva)) {
+    public void reservarEspaco(Integer idEspaco, Reserva novaReserva) {
+        EspacoFisico espaco = buscar(idEspaco);
+        var reservasDoEspaco = espaco.getReservasDoEspaco();
+        for (Reserva reserva : reservasDoEspaco) {
+            if (Reserva.sobreposicao(reserva, novaReserva)) {
                 System.out.println("Reserva não concedida!");
-                return false;
+                return;
             }
         }
         System.out.println("Reserva Concedida!");
         reservasDoEspaco.add(novaReserva);
-        historicoDeReservasFeitas.add(new Pair<>(TipoReserva.ADD.getDescricao(), novaReserva));
-        return true;
+        espaco.getHistoricoDeReservasFeitas().add(new Pair<>(TipoReserva.ADD.getDescricao(), novaReserva));
     }
 
-    public void removerReserva(Reserva reservaExistente) {
+    public void removerReserva(Integer idEspaco, Reserva reservaExistente) {
+        EspacoFisico espaco = buscar(idEspaco);
+        var reservasDoEspaco = espaco.getReservasDoEspaco();
         if(reservasDoEspaco.contains(reservaExistente)) {
             reservasDoEspaco.remove(reservaExistente);
             System.out.println("Reserva removida com sucesso!");
+            espaco.getHistoricoDeReservasFeitas().add(new Pair<>(TipoReserva.DELETE.getDescricao(), reservaExistente));
+            return;
         }
-        historicoDeReservasFeitas.add(new Pair<>(TipoReserva.DELETE.getDescricao(), reservaExistente));
         System.out.println("Reserva não encontrada!");
     }
 
-    public void historicoReservas(){
-        for(var reserva : historicoDeReservasFeitas){
-            System.out.println(reserva.getSecond());
+    public void historicoReservas(Integer idEspaco){
+        EspacoFisico espaco = buscar(idEspaco);
+        for(var reserva : espaco.getHistoricoDeReservasFeitas()){
+            System.out.println(STR."\{reserva.getFirst()}, \{reserva.getSecond()}");
         }
     }
 
