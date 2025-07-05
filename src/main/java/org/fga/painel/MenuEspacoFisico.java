@@ -131,6 +131,10 @@ public class MenuEspacoFisico {
     }
 
     private static void iniciarReserva(TipoUsuario tipo) {
+        if(!TipoUsuario.SERVIDOR.equals(tipo)){
+            System.out.println("Usuario não tem permissão para fazer o acesso");
+            return;
+        }
         int op = escolhaEspaco();
         if (op == -1) {
             return;
@@ -192,8 +196,9 @@ public class MenuEspacoFisico {
 
     private static void criarEspacoFisico(TipoUsuario tipo) {
 
-        if(TipoUsuario.ALUNO.equals(tipo)){
+        if(!TipoUsuario.SERVIDOR.equals(tipo)){
             System.out.println("Usuario não tem permissão para fazer o acesso");
+            return;
         }
         int tipoDeEspaco = escolhaEspaco();
         if (tipoDeEspaco == -1) {
@@ -250,7 +255,6 @@ public class MenuEspacoFisico {
 
         System.out.println("Informe a quantidade desse equipamento no espaco: ");
         int quantidade = sc.nextInt();
-        sc.nextLine();
 
         CadastroEspacoFisico cadastro = cadastroFactory(tipoDeEspaco);
         if (cadastro == null) return;
@@ -259,6 +263,7 @@ public class MenuEspacoFisico {
         if(idEspaco == -1) return;
 
         cadastro.cadastrarEquipamento(idEspaco, nomeEquipamento, quantidade);
+        System.out.println("Equipamento cadastrado com sucesso!");
     }
 
     public static CadastroEspacoFisico cadastroFactory(int op){

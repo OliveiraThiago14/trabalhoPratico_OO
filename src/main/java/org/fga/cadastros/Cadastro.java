@@ -64,7 +64,7 @@ public class Cadastro<T extends Common> {
     }
 
     public void listar(TipoEspacoFisico tipo){
-        System.out.println("\n" + tipo.getTipo() + " cadastrados:");
+        System.out.println("\n" + tipo.getTipo() + "s cadastrado(a)s:");
         for (Pair<T, OffsetDateTime> par : db){
             System.out.println(par.getFirst().toString());
         }
