@@ -13,9 +13,9 @@ public class MenuProfessor {
     private static final CadastroAluno cadastroAluno = CadastroAluno.getInstancia();
 
     public static void goToMenu() {
-        System.out.println("Digite seu email: ");
+        System.out.println("Informe seu email: ");
         String email = sc.nextLine();
-        System.out.println("Digite sua senha: ");
+        System.out.println("Informe sua senha: ");
         String senha = sc.nextLine();
         try {
             cadastroProfessor.autenticar(email, senha);

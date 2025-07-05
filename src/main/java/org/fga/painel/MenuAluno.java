@@ -12,9 +12,10 @@ public class MenuAluno {
 
 
     public static void goToMenu() {
-        System.out.println("Informe o seu email: ");
+        System.out.println("Informe seu email: ");
+        sc.nextLine();
         String email = sc.nextLine();
-        System.out.println("Informe a sua senha: ");
+        System.out.println("Informe sua senha: ");
         String senha = sc.nextLine();
         try {
             cadastroAluno.autenticar(email, senha);

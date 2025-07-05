@@ -19,9 +19,9 @@ public class MenuServidor {
     private static final CadastroProfessor cadastroProfessor = CadastroProfessor.getInstancia();
 
     public static void goToMenu(){
-        System.out.println("Informe o seu email:");
+        System.out.println("Informe seu email:");
         String email = sc.nextLine();
-        System.out.println("Informe a sua senha:");
+        System.out.println("Informe sua senha:");
         String senha = sc.nextLine();
         try{
             cadastroServidor.autenticar(email,senha);
@@ -38,10 +38,11 @@ public class MenuServidor {
             System.out.println("5 - Voltar ao Menu Inicial");
 
             int escolha = sc.nextInt();
+            sc.nextLine();
 
             switch (escolha) {
                 case 1 -> cadastroAll(escolha());
-                case 2 -> cadastroServidor.listar(escolha());
+                case 2 -> chamarListar(escolha());
                 case 3 -> dadosAtualizados(escolha());
                 case 4 -> MenuEspacoFisico.goToMenu(TipoUsuario.SERVIDOR);
                 case 5 -> {
@@ -55,6 +56,7 @@ public class MenuServidor {
     public static TipoUsuario escolha(){
         System.out.println("Escolha uma opcao:\n1 - Aluno\n2 - Servidor\n3 - Professor\n4 - Voltar ao menu inicial");
         int escolha = sc.nextInt();
+        sc.nextLine();
         if(escolha < 1 || escolha > 4){
             System.out.println("Escolha uma opcao valida!");
             return escolha();
@@ -68,6 +70,15 @@ public class MenuServidor {
         return tipo;
     }
 
+    private static void chamarListar (TipoUsuario tipo) {
+        switch (tipo){
+            case ALUNO -> cadastroAluno.listar(tipo);
+            case SERVIDOR -> cadastroServidor.listar(tipo);
+            case PROFESSOR -> cadastroProfessor.listar(tipo);
+            case null -> goToMenu();
+        }
+    }
+
     private static void dadosAtualizados(TipoUsuario tipoUsuario) {
         if(tipoUsuario == null){
             goToMenu();
@@ -78,7 +89,6 @@ public class MenuServidor {
 
         //nome
         System.out.println("Qual o nome? ");
-        sc.nextLine();
         String nome = sc.nextLine();
         //email
         System.out.println("Qual o email? ");
@@ -131,7 +141,6 @@ public class MenuServidor {
         }
         //nome
         System.out.println("Qual o nome? ");
-        sc.nextLine();
         String nome = sc.nextLine();
         //email
         System.out.println("Qual o email? ");
