@@ -131,10 +131,6 @@ public class MenuEspacoFisico {
     }
 
     private static void iniciarReserva(TipoUsuario tipo) {
-        if(!TipoUsuario.SERVIDOR.equals(tipo)){
-            System.out.println("Usuario não tem permissão para fazer o acesso");
-            return;
-        }
         int op = escolhaEspaco();
         if (op == -1) {
             return;
@@ -244,11 +240,14 @@ public class MenuEspacoFisico {
     }
 
     private static void cadastrarEquipamento(TipoUsuario tipo) {
+        if(!TipoUsuario.SERVIDOR.equals(tipo)){
+            System.out.println("Usuario não tem permissão para fazer o acesso");
+            return;
+        }
         int tipoDeEspaco = escolhaEspaco();
         if (tipoDeEspaco == -1) {
             return;
         }
-
         System.out.println("Informe o nome do equipamento: ");
         String nomeEquipamento = sc.next();
         sc.nextLine();
