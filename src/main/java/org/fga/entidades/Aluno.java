@@ -1,13 +1,7 @@
 package org.fga.entidades;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 @Getter
 @Setter

@@ -6,7 +6,6 @@ import org.fga.cadastros.CadastroServidor;
 import org.fga.entidades.Aluno;
 import org.fga.entidades.Professor;
 import org.fga.entidades.ServidorAdm;
-import org.fga.entidades.Usuario;
 import org.fga.exceptions.EmailSenhaIncorretaException;
 import org.fga.util.TipoUsuario;
 

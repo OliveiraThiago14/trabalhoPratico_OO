@@ -4,12 +4,9 @@ import lombok.Getter;
 import org.fga.entidades.Reserva;
 import org.fga.espacos.EspacoFisico;
 import org.fga.util.Pair;
-import org.fga.util.TipoEspacoFisico;
 import org.fga.util.TipoReserva;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 @Getter
 public class CadastroEspacoFisico extends Cadastro<EspacoFisico> {
     public static CadastroEspacoFisico getInstancia() {

@@ -42,5 +42,5 @@ public class MenuAluno {
         }
     }
 }
-//atualizar - precisa de ID, método de receber dados recebe tipo de usuario
+
 
