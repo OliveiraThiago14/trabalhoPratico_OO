@@ -23,7 +23,7 @@ Projeto desenvolvido para a disciplina de Orientação a Objetos (OO), com foco 
 - Tratamento de exceções customizadas
 
 ## Diagrama de Classe 
-
+ [Clique aqui para visualizar o relatório final (PDF)](docs/Relatorio_OO.pdf)
 
 ## Autores
 
