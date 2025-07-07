@@ -11,7 +11,7 @@ Projeto desenvolvido para a disciplina de Orientação a Objetos (OO), com foco 
 
 ## Tecnologias
 
-- Java 17
+- Java 21
 - Lombok
 - Arquitetura em camadas (MVC)
 
